@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Creation</title>
+	<style type="text/css">
+	p
+	{
+		color: #b8003d;
+		font-family: courier;
+		font-size:130%;
+	}
+	</style>
+</head>
+<body background="{% static "college4.jpg" %}">
+<h1 style="color: #11263d;"><b><i><u>Event Creation</u></i></b></h1>
+<form method="POST" action="">{% csrf_token %}
+<div>{{ form.as_p }}</div>
+<input type = 'submit' value="Submit"></input>
+</form>
+</body>
+</html>
