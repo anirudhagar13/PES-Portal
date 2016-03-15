@@ -17,6 +17,7 @@ class Event(models.Model):
 	contact_info = models.TextField(null = False,default="")
 	event_desc = models.TextField(null = True)
 	own_form = models.URLField(null = True,blank = True)
+	poster = models.ImageField(upload_to="./tester/static",null=True,blank=True)
 	requirements = models.CharField(max_length=100,null = True, blank = True)
 	timestamp = models.DateTimeField(default = timezone.now)
 

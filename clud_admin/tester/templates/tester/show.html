@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<script type="text/javascript">
+		function init()
+		{
+			box = document.getElementById('id_rows');				//textbox sent from views to store list
+			hid_form = document.getElementById('data_storage');		//Hidden form to store ticked chekbox list
+			hid_form.style.visibility="hidden";
+		}
+		function send_checklist(event)
+		{
+			input_check = document.getElementsByName('check_delete');	//Input type checkbox array
+			str = "";
+			for(var i in input_check)
+			{
+				var x=input_check[i];
+				if(x.checked)											//Identifying elements that are checked
+					str = i + "," + str;
+			}
+
+			box.value = str;											//Storing checklist to send to views
+		}
+	</script>
+</head>
+<body class="w3-container" background="{% static "college5.jpg" %}" onload = "init()">
+<h1 class="w3-tag w3-xxlarge w3-padding w3-round-large w3-deep-orange w3-center">Event Managment</h1>
+<table class="w3-table w3-bordered w3-hover-shadow w3-card-4">
+<tr class="w3-indigo">
+	<th>  </th>
+	<th> Name </th>
+	<th> Date </th>
+	<th> Venue </th>
+	<th> Participants </th>
+	<th> Description </th>
+</tr>
+{% for p in form %}
+       <tr class="w3-blue-grey w3-hover-teal">
+        <td><input type="checkbox" name="check_delete"></td>
+        <td><a href="http://localhost:8000/register/{{p.club_id}}${{p.event_id}}">{{p.event_name}}</a></td>	<!--Redirection to registration entries for that event-->
+        <td>{{p.event_date}}</td>
+        <td>{{p.venue}}</td>
+        <td>{{p.no_part}}</td>
+        <td>{{p.event_desc}}</td>
+        </tr>
+{% endfor %}
+</table>
+<form method="POST" action="">{% csrf_token %}
+<div id="data_storage">{{ check.as_p }}</div>
+<input class="w3-input w3-sand w3-hover-teal w3-round" type = 'submit' value="Delete Entries" onclick="send_checklist()"></input>
+</form> 
+</body>
+</html>
+

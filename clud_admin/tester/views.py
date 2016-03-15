@@ -24,9 +24,11 @@ def del_event(cid,num):
 
 def del_reg(cid,eid,num):
 	ls = list(map(int,str(num).split(',')[:-1]))
-	#print ls
+	print ls
 	itr = Register.objects.filter(club_id=cid).filter(event_id=eid).order_by('id')
+	print itr
 	for i in ls:	
+		print(i,itr[i].name)
 		itr[i].delete()
 
 def show(request):
@@ -48,13 +50,13 @@ def reg(request):
 	cid = ls[0]
 	eid = int(ls[1])
 	checkbox = Tuple_no(request.POST)
-	name = Event.objects.filter(club_id=cid).filter(event_id=eid)[0].event_name #if no entry of event_id in event gives index out of
-	forms = Register.objects.filter(club_id=cid).filter(event_id=eid)
+	name = Event.objects.filter(club_id=cid).filter(event_id=eid)[0].event_name 	#if no entry of event_id in event gives index out of
+	forms = Register.objects.filter(club_id=cid).filter(event_id=eid).order_by('id')
 	if checkbox.is_valid():
 		checked = checkbox.cleaned_data.get("rows")
 		del_reg(cid,eid,checked)
 		checked = Tuple_no()
-		forms = Register.objects.filter(club_id=cid).filter(event_id=eid)
+		forms = Register.objects.filter(club_id=cid).filter(event_id=eid).order_by('id')
 		return render(request, 'tester/show2.html', {'check':checkbox,'form': forms})
 
 	return render(request, 'tester/show2.html', {'name':name,'check':checkbox,'form': forms})
