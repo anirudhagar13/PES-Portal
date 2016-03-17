@@ -1,0 +1,22 @@
+body
+{
+	background: url("../unnamed.jpg");
+}
+
+div#sale_table
+{
+	margin-top: 20px;
+	width:75%;
+	margin-left: auto;
+	margin-right: auto;
+}
+div#search
+{
+	padding: 20px;
+}
+input#searchbar:focus {
+    outline: none !important;
+    border:1px solid blue;
+    box-shadow: 0 0 10px #719ECE;
+}
+
