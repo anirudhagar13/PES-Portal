@@ -63,3 +63,8 @@ def buy(request):
 	print request.POST
 
 	return HttpResponse(request.POST)
+
+def search_book(request):
+	print request.GET
+
+	return HttpResponse(request.GET);

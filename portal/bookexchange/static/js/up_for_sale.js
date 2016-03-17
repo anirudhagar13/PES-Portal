@@ -1,10 +1,33 @@
 function init()
 {
 	saleTable = document.getElementById("table");
-	saleTable.addEventListener("click", make_ajax,false);
+	saleTable.addEventListener("click", make_ajax_for_borrow,false);
+
+  searchBar = document.getElementById("searchbar");
+  searchbar.addEventListener("change",make_ajax_for_search,false);
 }
 
-function make_ajax(event)
+function make_ajax_for_search(event)
+{
+    console.log(searchbar.value);
+     var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) 
+        {
+          // alert("success");
+          makeToast("Success");
+        }
+      };
+      xhttp.open("GET","search_book?book_name="+searchbar.value,true);
+    // xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send();
+      
+
+}
+
+function make_ajax_for_borrow(event)
 {
 	if( event.target != event.currentTarget)
 	{
