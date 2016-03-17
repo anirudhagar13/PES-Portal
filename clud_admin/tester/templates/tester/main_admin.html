@@ -1,0 +1,16 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Club-Admin Interface</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+</head>
+<body class="w3-container" background="{% static "college_images/pes3.jpg" %}" style="background-repeat:no-repeat;background-size: cover;">
+<div style = "text-align: center;margin-top: 150px">
+<a href="http://localhost:8000/create/{{fill_cid}}" class="w3-btn w3-xxlarge w3-round-xxlarge w3-indigo w3-hover-teal w3-animate-zoom">Event Creation</a><br/><br/><br/>
+<a href="http://localhost:8000/event/{{fill_cid}}" class="w3-btn w3-xxlarge w3-round-xxlarge w3-indigo w3-hover-teal w3-animate-zoom">Event Management</a><br/><br/><br/>
+<a href="http://localhost:8000/promote/{{fill_cid}}" class="w3-btn w3-xxlarge w3-round-xxlarge w3-indigo w3-hover-teal w3-animate-zoom">Event Promotion</a>
+</div>
+</body>
+</html>

@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#For Email Notification
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'evantdjango@gmail.com'
+EMAIL_HOST_PASSWORD = 'evdj12345'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Application definition
 

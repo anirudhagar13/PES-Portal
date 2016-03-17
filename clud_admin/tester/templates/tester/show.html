@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Event</title>
+	<title>Events</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 	<script type="text/javascript">
@@ -27,9 +27,9 @@
 		}
 	</script>
 </head>
-<body class="w3-container" background="{% static "college5.jpg" %}" onload = "init()">
-<h1 class="w3-tag w3-xxlarge w3-padding w3-round-large w3-deep-orange w3-center">Event Managment</h1>
-<table class="w3-table w3-bordered w3-hover-shadow w3-card-4">
+<body class="w3-container" background="{% static "college_images/pes7.jpg" %}" style="background-repeat:no-repeat;background-size: cover;" onload = "init()">
+<h1 class="w3-tag w3-xxlarge w3-padding w3-round-large w3-deep-orange w3-center w3-animate-zoom">Event Managment</h1>
+<table class="w3-table w3-bordered w3-hover-shadow w3-card-4 w3-animate-opacity">
 <tr class="w3-indigo">
 	<th>  </th>
 	<th> Name </th>
@@ -51,7 +51,7 @@
 </table>
 <form method="POST" action="">{% csrf_token %}
 <div id="data_storage">{{ check.as_p }}</div>
-<input class="w3-input w3-sand w3-hover-teal w3-round" type = 'submit' value="Delete Entries" onclick="send_checklist()"></input>
+<input class="w3-btn w3-xlarge w3-round-xxlarge w3-pale-red w3-hover-teal" type = 'submit' value="Delete Entries" onclick="send_checklist()"></input>
 </form> 
 </body>
 </html>
