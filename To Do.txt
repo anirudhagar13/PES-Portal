@@ -1,0 +1,15 @@
+Club_admin:
+>Poster Upload
+>Styling
+>Postgres
+>Sweet Alert
+
+Welcomepage:
+>Postgres
+>Logout
+>Sweet Alert
+
+Book Exchange:
+>Seller backend
+>Buttons 
+>Whole Interface(Headings,buttons,seller page)
