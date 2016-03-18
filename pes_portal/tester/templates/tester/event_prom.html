@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Promotion</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{%static 'w3.css'%}">
+</head>
+<body class="w3-container" background="{% static "college_images/pes4.jpg" %}" style="background-repeat:no-repeat;background-size: cover;">
+<h1 class="w3-tag w3-xxlarge w3-padding w3-round-large w3-red w3-center w3-animate-zoom">Event Promotion</h1>
+<table class="w3-table w3-bordered w3-xlarge w3-animate-opacity">
+<tr class="w3-indigo">
+	<th class="w3-center"> Events </th>
+</tr>
+{% for p in form %}
+       <tr>
+        <td class="w3-btn w3-xlarge w3-round-xxlarge w3-light-blue w3-center w3-hover-teal"><a href="click_prom/{{p.club_id}}${{p.event_id}}">{{p.event_name}}</a></td>	<!--Redirection to registration entries for that event-->
+        </tr>
+{% endfor %}
+</table> 
+</body>
+</html>
