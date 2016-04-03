@@ -1,6 +1,6 @@
 body
 {
-	background: url("../unnamed.jpg");
+	
 }
 
 div#sale_table
@@ -13,6 +13,7 @@ div#sale_table
 div#search
 {
 	padding: 20px;
+	margin-bottom: 5px;
 }
 input#searchbar:focus {
     outline: none !important;

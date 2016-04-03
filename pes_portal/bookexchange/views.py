@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from tester.models import Signup,Seller
+from tester.models import Signup,Seller,Pending_transactions
 from django.http import JsonResponse,HttpResponse
 from .forms import UploadBookForm
 # Create your views here.
@@ -24,7 +24,7 @@ def get_book_data():
 	for seller in Seller.objects.all():
 	
 		my_dict = {
-		"usn":str(seller.seller_id.Usn).upper(),
+		"usn":str(seller.seller_id_id),
 		"book_name":str(seller.book_name)
 		}
 		my_list.append(my_dict)
@@ -45,9 +45,8 @@ def upload_book(request):
 
 		if form.is_valid():
 			new_book = form.save(commit=False)
-			'''seller_id to be taken from the user's session
-				hardcoded for now '''
-			new_book.seller_id = Student('1pi13cs3')
+			
+			new_book.seller_id = Signup.objects.get(usn=request.session['usn'])
 			new_book.save() 
 			return redirect('list_books_for_sale')
 		else:
@@ -60,8 +59,15 @@ def upload_book(request):
 
 
 def buy(request):
-	print (request.POST)
+	print (request.POST, request.session['usn'])
 
+	book_name = request.POST['book_name']
+	buyer_usn = Signup.objects.get(usn = request.session['usn'])
+	seller_usn = Seller.objects.get(seller_id_id = request.POST['seller_id'], book_name = book_name)
+
+	new_entry = Pending_transactions(buyer_id=buyer_usn, seller=seller_usn,book_name=book_name)
+	new_entry.save()
+	
 	return HttpResponse(request.POST)
 
 def search_book(request):
