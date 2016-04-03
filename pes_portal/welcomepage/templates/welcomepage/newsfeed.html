@@ -1,34 +1,75 @@
 {% extends 'welcomepage/base.html' %}
 
 {% block content %}
+<!--style>
+li.navs:hover
+{
+	background-color:#52b6ec;
+}
+</style-->
+<script>
+function init()
+{
+	window.addEventListener("click",remove_modals);
+}
+function remove_modals(event)
+{
+	if(mod = document.getElementById("loginproblem"))
+		mod.innerHTML = "";
+	else if(mod1 = document.getElementById("userexists"))
+		mod1.innerHTML = "";
+	else if(mod2 = document.getElementById("emailsent"))
+		mod2.innerHTML = "";
+	else if(mod3 = document.getElementById("nouser"))
+		mod3.innerHTML = "";
+}
+function check_fields()
+{
 
-<!--div>
-	{{event.eid}} {{event.ename}}
-</div-->
+	pass1 = document.getElementById("pass");
+	pass2 = document.getElementById("confirmpass");
+	passdontmatch = document.getElementById("passdontmatch");
+	
+	if(pass1.value != pass2.value)
+	{
+		pass1.value = "";
+		pass2.value = "";
+		passdontmatch.innerHTML = "Passwords Don't Match. Please Enter Again";
+		return false;
+	}
+	return true;
+}
+</script>
+</head>
 
-
-<body data-spy="scroll" data-target="#navbar" data-offset="0">
-    <header id="header" role="banner">
+<body onload="init()" data-spy="scroll" data-target="#navbar" data-offset="0" >
+<header id="header" role="banner">
         <div class="container">
-            <div id="navbar" class="navbar navbar-default">
+            <div id="navbar" class="navbar navbar-inverse" style="background-color:white;border:white">
                 <div class="navbar-header">
                     
                   
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="{% url 'newsfeed'%}"><i class="icon-home"></i></a></li>
-						<li><a href="#clubs">Clubs</a></li>
-						<li><a href="#events">Events</a></li>
-                        <li><a>Book Exchange</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li  onclick="location.href='newsfeed';"><a>Home</a></li>
+						<li  class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Clubs<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+							{% for club in clubs%}
+								<li onclick="location.href='/club/?club_id={{club.club_id}}';"><a>{{club.club_name}}</a></li>
+							{%endfor%}
+							</ul>
+						</li>
+						<li  onclick="location.href='bookexchange';"><a>Book Exchange</a></li>
+						<li ><a href="#contact">Contact</a></li>
 						{%if CLUBID%}
-						<li><a>Manage Events</a></li>
+						<li ><a>Manage Events</a></li>
 						{%endif%}
-						{%if LOGGED%}
-						<li>Hello <br>
-						{{LOGGED.name}}!</li>
-						<li><button style="position:absolute; left:100px" class="btn btn-primary btn-lg">Logout</button></li>
+						{%if LOGGED.name%}
+						<li class = "lead" style="position:absolute; left: 600px ; top:15px">Hello {{LOGGED.name}}!</li>
+						<form name="logoutform" method="POST">
+						<li><button name="logout" value="logout" style="position:absolute; left:900px" class="btn btn-primary btn-lg">Logout</button></li>
+						</form>
 						{%else%}
 						<li><button style="position:absolute; left:300px" id='modal-launcher' class="btn btn-primary btn-lg" data-toggle="modal" data-target="#login-modal">Login</button></li>
 						<li><button style="position:absolute; left:400px" id='modal-launcher' class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup-modal">Sign Up</button></li>
@@ -39,6 +80,54 @@
         </div>
     </header><!--/#header-->
 	
+{%if PROBLEM_LOGGING%}
+<div id="loginproblem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<h2 class="modal-title" id="myModalLabel">There was a problem with your username or password</h2>
+      		</div>
+		</div>
+	</div>	
+</div>
+{%endif%}
+
+{%if INTEGRITY_ERROR%}
+<div id="userexists" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<h2 class="modal-title" id="myModalLabel">There was a problem signing you up. You may already have an account.</h2>
+      		</div>
+  		</div>
+	</div>
+</div>
+{%endif%}
+
+{%if MAIL_SENT%}
+<div id="emailsent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<h2 class="modal-title" id="myModalLabel">An email was sent to your account with your password</h2>
+      		</div>
+      	</div>
+    </div>
+</div>
+{%endif%}
+
+{%if NO_USER%}
+<div id="nouser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<h2 class="modal-title" id="myModalLabel">NO SUCH USER</h2>
+      		</div>
+		</div>
+    </div>
+</div>
+{%endif%}
+
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
     	<div class="modal-content">
@@ -50,8 +139,9 @@
       			<div class="clearfix"></div>
       			<div id='social-icons-conatainer'>
 	        		<div class='modal-body-left'>
-						<form action="" name="loginform"  method="POST">
-	        			<div class="form-group">
+						<form action="" name="loginform" method="POST">
+						
+						<div class="form-group">
 		              		<input type="text" id="usn" name="usn" placeholder="Enter your USN" value="" class="form-control login-field">
 		              		<i class="fa fa-user login-field-icon"></i>
 		            	</div>
@@ -60,10 +150,13 @@
 		            	  	<input type="password" id="login-pass" name="password" placeholder="Password" value="" class="form-control login-field">
 		              		<i class="fa fa-lock login-field-icon"></i>
 		            	</div>
-		
+						
 		            	<input type="submit" value="Login" class="btn btn-success modal-login-btn"/>
-		            	<a href="#" class="login-link text-center">Lost your password?</a>
+		            	
 						</form>
+						
+						<input type="button" value="Lost your password?" data-toggle="modal" data-target="#lostpwd-modal"/>
+						
 					</div>
 	        	
 	        	</div>																												
@@ -74,8 +167,38 @@
       		</div>
       		<div class="clearfix"></div>
       		</div>
-    	</div>
-  	</div>
+</div>
+
+<div class="modal fade" id="lostpwd-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		
+        		<h2 class="modal-title" id="myModalLabel">Give us your USN and we shall email you your password</h2>
+      		</div>
+      		<div class="modal-body login-modal">
+      			<div class="clearfix"></div>
+      			<div id='social-icons-conatainer'>
+	        		<div class='modal-body-left'>
+						<form action="" name="lostpwd" method="POST">
+						
+						<div class="form-group">
+							<input type="text"  name="userusn" placeholder="Enter your USN" value="" class="form-control login-field">
+		              		<i class="fa fa-user login-field-icon"></i>
+		            	</div>
+	
+		            	<input type="submit" value="Submit" class="btn btn-success modal-login-btn"/>
+		            	
+						</form>						
+					</div>
+	        	
+	        	</div>																												
+        		<div class="clearfix"></div>
+		
+        		</div>
+      		</div>
+      		<div class="clearfix"></div>
+      		</div>
 </div>
 
 <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -149,7 +272,7 @@
 
 	
 	
-    <section id="main-slider" class="carousel">
+    <section id="main-slider" style="padding:100px 0;height:300px;" class="carousel">
         <div class="carousel-inner">
             <div class="item active">
                 <div class="container">
@@ -172,6 +295,7 @@
         <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>
     </section><!--/#main-slider-->
 
+	
     <section id="events">
 	 <!-- Page Content -->
 	<div class="container"><div class="box">
@@ -187,8 +311,7 @@
         </div>
         <!-- /.row -->
 
-		{%for event in events%}
-        <!-- Project One -->
+		{%for event in events%}        
         <div class="row">
             <div class="col-md-7">
                 <a href="#">
@@ -203,36 +326,9 @@
             </div>
         </div>
         <!-- /.row -->
-
         <hr>
 		{%endfor%}
-        <!-- Pagination -->
-        <div class="row text-center">
-            <div class="col-lg-12">
-                <ul class="pagination">
-                    <li>
-                        <a href="#">&laquo;</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">&raquo;</a>
-                    </li>
-                </ul>
-            </div>
+        
         </div>
 		</div>
         <!-- /.row -->
@@ -257,7 +353,7 @@
                             <div class="portfolio-image">
                                 <img src="images/portfolio/thumb/item1.jpg" alt="">
                                 <div class="overlay">
-                                    <a href="club?club_id={{club.club_id}}" title="Lorem ipsum dolor sit amet""><i class="icon-eye-open"></i></a>             
+                                    <a href="/club/?club_id={{club.club_id}}" title="Lorem ipsum dolor sit amet"><i class="icon-eye-open"></i></a>             
                                 </div>
                             </div>
                             <h5>{{club.club_name}}</h5>
@@ -292,12 +388,7 @@
     <footer id="footer">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
-                    &copy; 2013 <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>. All Rights Reserved.
-                </div>
-                <div class="col-sm-6">
-                    <img class="pull-right" src="images/shapebootstrap.png" alt="ShapeBootstrap" title="ShapeBootstrap">
-                </div>
+                
             </div>
         </div>
     </footer><!--/#footer-->

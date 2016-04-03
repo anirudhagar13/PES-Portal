@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+
+    <head>
+        <title>Index</title>
+    </head>
+
+    <body>
+        <h1>dasdfdadfa{{name}} aadafda...</h1>
+<!---<img src="{% static "images/logo.jpg" %}" alt="Picture of Samarpana" />-->
+<img src="/static/images/logo.jpg" alt="Picture of Samarpana" /> <!-- New line -->
+
+<br />
+        <a href="/index/about/">About</a>
+    </body>
+
+</html>

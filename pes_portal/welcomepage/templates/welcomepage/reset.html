@@ -1,0 +1,76 @@
+{% extends 'welcomepage/base.html' %}
+
+{% block content %}
+<script>
+function check_fields1()
+{
+
+	pass1 = document.getElementById("pass1");
+	pass2 = document.getElementById("confirmpass1");
+	passdontmatch = document.getElementById("passdontmatch1");
+	
+	if(pass1.value != pass2.value)
+	{
+		pass1.value = "";
+		pass2.value = "";
+		passdontmatch.innerHTML = "Passwords Don't Match. Please Enter Again";
+		return false;
+	}
+	return true;
+}
+</script>
+</head>
+
+<div id="password-reset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">	
+        		<h2 class="modal-title" id="myModalLabel">Reset your password</h2>
+      		</div>
+      		<div class="modal-body login-modal">
+      			<div class="clearfix"></div>
+      			<div id='social-icons-conatainer'>
+	        		<div class='modal-body-left'>
+						<form action="" name="resetform" onsubmit="return check_fields1()" method="POST">{% csrf_token %}
+						
+						<div class="form-group">
+							<input type="text" name="usn" placeholder="Enter USN" value="" class="form-control login-field">
+		              		<i class="fa fa-lock login-field-icon"></i>
+		            	  	<input type="password" name="newpassword1" id="pass1" placeholder="New password" value="" class="form-control login-field">
+		              		<i class="fa fa-lock login-field-icon"></i>
+							<input type="password" name="newpassword2" id="confirmpass1" placeholder="Confirm Password" value="" class="form-control login-field">
+		              		<i class="fa fa-lock login-field-icon"></i>
+							
+							<label id="passdontmatch1" class="form-control login-field"></label>
+							
+						</div>
+						
+		            	<input type="submit" value="Submit" class="btn btn-success modal-login-btn"/>
+		            	
+						</form>
+						
+					</div>
+	        	
+	        	</div>																												
+        		<div class="clearfix"></div>
+        		
+					
+        		</div>
+      		</div>
+      		<div class="clearfix"></div>
+      		</div>
+</div>
+
+{%if NO_USER%}
+<div id="nouser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		
+        		<h2 class="modal-title" id="myModalLabel">NO SUCH USER</h2>
+      		</div>
+      		</div>
+      		</div>
+</div>
+{%endif%}
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Student,Seller
+from tester.models import Signup,Seller
 from django.http import JsonResponse,HttpResponse
 from .forms import UploadBookForm
 # Create your views here.
@@ -10,7 +10,7 @@ def populate_students(request):
 		student = Student(Usn=base_usn + str(i))
 		student.save()
 
-	print 'saved'
+	print ('saved')
 
 def populate_upforsale(request):
 	for i in range(5):
@@ -36,7 +36,7 @@ def get_book_data():
 def list_books_for_sale(request):
 	if request.method == 'GET':
 		data = get_book_data()
-		print data
+		print (data)
 		return render(request,'up_for_sale.html',{'data':data})
 
 def upload_book(request):
@@ -60,11 +60,11 @@ def upload_book(request):
 
 
 def buy(request):
-	print request.POST
+	print (request.POST)
 
 	return HttpResponse(request.POST)
 
 def search_book(request):
-	print request.GET
+	print (request.GET)
 
 	return HttpResponse(request.GET);

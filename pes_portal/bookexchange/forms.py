@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Seller
+from tester.models import Seller
 
 class UploadBookForm(forms.ModelForm):
 
