@@ -12,6 +12,7 @@ branch_choice = (("CSE","Computer Engineering"),
 				("TE","Telecom Engineering"),
 				("BT","Bio-Technology"),
 				("CV","Civil Engineering"))
+
 designation_choice = (("Admin","Admin"),
 				("Cultural Secretary","Cultural Secretary"),
 				("Event Manager","Event Manager"),
@@ -29,7 +30,7 @@ sem_choice = (("1","I"),
 # Create your models here.
 
 class Club(models.Model):
-	club_id  = models.AutoField(primary_key=True)
+	club_id = models.CharField(max_length = 120,primary_key=True)
 	club_name = models.CharField(max_length = 120,null = True)
 	contact_info = models.IntegerField(null = True)
 	objective = models.TextField(null = True)
@@ -39,7 +40,7 @@ class Club(models.Model):
 		unique_together = ('club_id',)
 	def __str__ (self):
 		return self.club_name
-
+'''
 class Signup(models.Model):
 	usn = models.CharField(primary_key=True, max_length=10)
 	name = models.CharField(max_length=100)
@@ -49,6 +50,20 @@ class Signup(models.Model):
 	phone = models.BigIntegerField(null=True)
 	sem = models.IntegerField(null=True)
 	club_id = models.ForeignKey(Club, default=None, null=True)
+
+	def __str__(self):
+		return str(self.usn)
+'''
+
+class Signup(models.Model):
+	usn = models.CharField(max_length=10,primary_key=True)
+	name = models.CharField(max_length=50)
+	email = models.EmailField()
+	phone_no = models.IntegerField()
+	D_O_B = models.DateField(null=True)
+	branch = models.CharField(max_length=3,choices=branch_choice,null=True)
+	sem = models.CharField(max_length=1,choices=sem_choice)
+	club_id = models.CharField(max_length=10,null=True,blank=True)
 
 	def __str__(self):
 		return str(self.usn)
@@ -62,28 +77,7 @@ class Member(models.Model):
 		unique_together = ('club_id','usn')
 		
 	
-#Anirudh's table with club_id added as foreign key
-class Event(models.Model):
-	event_id = models.IntegerField()
-	event_name = models.CharField(max_length = 120)
-	event_date = models.DateTimeField(default = "")
-	venue = models.CharField(max_length = 120,null=True)
-	no_part = models.IntegerField()
-	no_reg = models.IntegerField(null = True,blank = True)
-	contact_info = models.TextField(null = False,default="")
-	event_desc = models.TextField(null = True)
-	requirements = models.TextField(null = True,blank = True)
-	own_form = models.URLField(null = True,blank = True)
-	timestamp = models.DateTimeField(default = timezone.now)
-	club_id = models.ForeignKey(Club, default=None)
-	
-	def __str__(self):
-		return str(self.event_id)
-
-	class Meta:
-		unique_together = ('club_id','event_id')
-'''
-#Anirudh's table		
+#Cannot Make club_id foreign due to `forbidden csrf error` while form posting
 class Event(models.Model):
 	club_id = models.CharField(max_length = 120)
 	event_id = models.IntegerField()
@@ -94,17 +88,17 @@ class Event(models.Model):
 	no_reg = models.IntegerField(null = True,blank = True)
 	contact_info = models.TextField(null = False,default="")
 	event_desc = models.TextField(null = True)
+	requirements = models.TextField(null = True,blank = True)
 	own_form = models.URLField(null = True,blank = True)
 	poster = models.ImageField(upload_to="./tester/static",null=True,blank=True)
-	requirements = models.CharField(max_length=100,null = True, blank = True)
 	timestamp = models.DateTimeField(default = timezone.now)
-
+	
 	def __str__(self):
-		return self.club_id
+		return str(self.event_id)
 
 	class Meta:
 		unique_together = ('club_id','event_id')
-'''
+
 class Register(models.Model):
 	club_id = models.CharField(max_length = 120,default="")
 	event_id = models.IntegerField()
@@ -121,20 +115,6 @@ class Register(models.Model):
 	class Meta:
 		unique_together = ('event_id','usn','club_id')
 
-
-
-'''
-class Signup(models.Model):
-	usn = models.CharField(max_length=10,primary_key=True)
-	password = models.CharField(max_length=10)
-	name = models.CharField(max_length=50)
-	email = models.EmailField()
-	phone_no = models.IntegerField()
-	D_O_B = models.DateField()
-	branch = models.CharField(max_length=3,choices=branch_choice)
-	sem = models.CharField(max_length=1,choices=sem_choice)
-	club_id = models.CharField(max_length=10,null=True,blank=True)
-'''
 
 class Seller(models.Model):
 	book_name = models.CharField(max_length=50)

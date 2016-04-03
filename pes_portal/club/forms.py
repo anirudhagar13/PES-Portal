@@ -9,7 +9,7 @@ class ClubForm(forms.ModelForm):
 class StudentForm(forms.ModelForm):
 	class Meta:
 		model = Signup
-		fields = ('usn', 'name', 'email','phone', 'dob', 'dept', 'sem' ,'club_id')
+		fields = ('usn', 'name', 'email','phone_no', 'D_O_B', 'branch', 'sem' ,'club_id')
 
 class MemberForm(forms.ModelForm):
 	class Meta:
