@@ -40,16 +40,16 @@ class Club(models.Model):
 		unique_together = ('club_id',)
 	def __str__ (self):
 		return self.club_name
-'''
+
 class Signup(models.Model):
 	usn = models.CharField(primary_key=True, max_length=10)
 	name = models.CharField(max_length=100)
-	dept = models.CharField(max_length=50)
+	dept = models.CharField(max_length=50,null=True)
 	email = models.EmailField(default = "abc@xyz.com",null=True)
 	dob = models.DateField(null=True)
 	phone = models.BigIntegerField(null=True)
 	sem = models.IntegerField(null=True)
-	club_id = models.ForeignKey(Club, default=None, null=True)
+	club_id = models.CharField(max_length=10,null=True,blank=True)
 
 	def __str__(self):
 		return str(self.usn)
@@ -67,7 +67,7 @@ class Signup(models.Model):
 
 	def __str__(self):
 		return str(self.usn)
-
+'''
 
 class Member(models.Model):
 	club_id = models.ForeignKey(Club, db_column = "club_id")
@@ -105,8 +105,8 @@ class Register(models.Model):
 	usn = models.CharField(max_length=10)
 	name = models.CharField(max_length=120,null=True)
 	email = models.EmailField(default = "abc@xyz.com",null=True)
-	phone_no = models.IntegerField(null=True)
-	branch = models.CharField(max_length=3,null=True)
+	phone = models.BigIntegerField(null=True)
+	dept = models.CharField(max_length=50,null=True)
 	sem = models.CharField(max_length=2,null=True)
 
 	def __str__(self):

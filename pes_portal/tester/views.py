@@ -100,8 +100,8 @@ def filt(a,b,c):
 This function puts desired info of registered user in registration table
 '''
 def put_reg(sgnup,ls,cid,eid):											
-	d = {"usn":sgnup[0].usn,"name":"","email":"","phone_no":"","branch":"","sem":""}
-	ls1 = ["name", "email","phone_no","branch","sem"]
+	d = {"usn":sgnup[0].usn,"name":"","email":"","phone":"","dept":"","sem":""}
+	ls1 = ["name", "email","phone","dept","sem"]
 	for i in d.keys():													#To check which of info during signup is required for event registration
 		if i in ls:
 			index = ls1.index(i)
@@ -110,9 +110,9 @@ def put_reg(sgnup,ls,cid,eid):
 			elif index == 1:
 				d[i] = str(sgnup[0].email)
 			elif index == 2:
-				d[i] = str(sgnup[0].phone_no)
+				d[i] = str(sgnup[0].phone)
 			elif index == 3:
-				d[i] = str(sgnup[0].branch)
+				d[i] = str(sgnup[0].dept)
 			elif index == 4:
 				d[i] = str(sgnup[0].sem)
 			else:
@@ -120,8 +120,8 @@ def put_reg(sgnup,ls,cid,eid):
 
 	Register.objects.create(club_id=cid,event_id=eid,					#Creating a registration entry
 							usn = d["usn"],name=d["name"],
-							email=d["email"],phone_no=d["phone_no"],
-							branch=d["branch"],sem=d["sem"])
+							email=d["email"],phone=d["phone"],
+							dept=d["dept"],sem=d["sem"])
 
 '''
 This function performs one click registrations

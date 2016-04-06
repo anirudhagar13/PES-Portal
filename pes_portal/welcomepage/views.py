@@ -60,7 +60,7 @@ def render_newsfeed(request):
 				#						Other in Signup table of our DB for recording user data
 				new_user = User.objects.create_user(username=usn,password=password1)
 				new_user.save()
-				Signup.objects.create(name=username, email=email, usn=usn, branch=dept, phone_no=mobile, sem=sem)		
+				Signup.objects.create(name=username, email=email, usn=usn, dept=dept, phone=mobile, sem=sem)		
 			except IntegrityError as e:
 				#user exists
 				return render(request, "welcomepage/newsfeed.html", {"events":events,"clubs":clubs,"INTEGRITY_ERROR":True})

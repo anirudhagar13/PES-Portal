@@ -1,19 +1,19 @@
 from django import forms
-from tester.models import *
+from .models import *
 from django.utils import timezone
 class ClubForm(forms.ModelForm):
 	class Meta:
-		model = Club
+		model = club
 		fields = ('club_id','club_name', 'contact_info', 'objective', 'description', 'created_on')
 
-'''class StudentForm(forms.ModelForm):
+class StudentForm(forms.ModelForm):
 	class Meta:
-		model = Signup
-		fields = ('usn', 'name', 'email','phone', 'dob', 'dept', 'sem' ,'club_id')'''
+		model = student
+		fields = ('usn', 'password', 'name', 'email','phone_no', 'D_O_B', 'branch', 'sem' ,'club_id')
 
 class MemberForm(forms.ModelForm):
 	class Meta:
-		model = Member
+		model = member
 		fields = ('club_id', 'usn')
 
 class EventForm(forms.ModelForm):
