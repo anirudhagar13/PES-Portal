@@ -129,9 +129,10 @@ class Seller(models.Model):
 class Pending_transactions(models.Model):
 	buyer_id = models.ForeignKey(Signup)
 	seller = models.ForeignKey(Seller,default=None)
+	book_name = models.CharField(max_length=50,default=None)
 
 	class Meta:
-		unique_together = (("buyer_id","seller"))
+		unique_together = (("buyer_id","seller","book_name"))
 		
 
 
