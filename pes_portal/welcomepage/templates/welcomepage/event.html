@@ -1,5 +1,5 @@
 {% extends 'welcomepage/base.html' %}
-
+{% load staticfiles %}
 {% block content %}
 
 <body data-spy="scroll" data-target="#navbar" data-offset="0">
@@ -140,23 +140,38 @@
     	</div>
   	</div>
 </div>
-
 	
 	
-    <section id="main-slider" class="carousel" >
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="container">
-                    <div class="carousel-content">
-                    
-                    </div>
-                </div>
-            </div><!--/.item-->
-           
-        </div><!--/.carousel-inner-->
-        <!---<a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
-        <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>-->
-    </section><!--/#main-slider-->
+<section id="main-slider" class="carousel" s>
+    <div id = "myCarousel" class = "carousel slide">
+        <!-- Carousel indicators -->
+       <ol class = "carousel-indicators">
+          <li data-target = "#myCarousel" data-slide-to = "0" class = "active"></li>
+          <li data-target = "#myCarousel" data-slide-to = "1"></li>
+          <li data-target = "#myCarousel" data-slide-to = "2"></li>
+       </ol>   
+       
+       <!-- Carousel items -->
+       <div class = "carousel-inner">
+          <div class = "item active">
+             <img src="{% static "images/team1.jpg" %}" alt="My image"/>
+          </div>
+          
+          <div class = "item">
+             <img src="{% static "CLUB/AT/lol1.jpg" %}" alt="My image"/>
+          </div>
+          
+          <div class = "item">
+             <img src="{% static "images/team3.jpg" %}" alt="My image"/>
+          </div>
+       </div>
+   
+       <!-- Carousel nav -->
+       <a class = "carousel-control left" href = "#myCarousel" data-slide = "prev">&lsaquo;</a>
+       <a class = "carousel-control right" href = "#myCarousel" data-slide = "next">&rsaquo;</a>
+       
+    </div> 
+</section>
 
     <section id="desc">
 	 <!-- Page Content -->
@@ -166,8 +181,10 @@
         <div class="row">
             <div class="col-lg-12">
                  <div class="center gap">
-                    <h2>Description</h2>
-                    
+                    {% if event %}
+                        <h2>Description</h2>
+                        <p>{{event.event_desc}}</p>
+                    {% endif %}
                 </div><!--/.center-->
             </div>
         </div>
@@ -205,17 +222,49 @@
     <section id="info">
         <div class="container">
             <div class="box">
-                    <center><h2>Info</h2></center>
-                                <center>
-                                {%for event in events %}
-                                	
-                             	DATE : {{ event.event_date }}<br>
-                              	VENUE : {{ event.venue }}<br>
-                              	No. of Participants : {{ event.no_part}}<br>
-                              	Contact : {{ event.contact_info}}
+                    <center>
+                        <h2>Info</h2>
+                    </center>
+                    <center>
+                        {%if event%}
                         	
-                         {%endfor%}<br><br><br><br>
-                                <a class="btn btn-primary btn-lg" href="#">Register</a></center> 	
+                     	DATE : {{ event.event_date }}<br>
+                      	VENUE : {{ event.venue }}<br>
+                      	No. of Participants : {{ event.no_part}}<br>
+                      	Contact : {{ event.contact_info}}
+                	
+                        {%endif%}
+                        <br><br><br><br>
+                        
+                        <script type="text/javascript">
+                            function register()
+                            {
+                                if({{isLoggedIn}})
+                                {
+                                    var xhttp = new XMLHttpRequest();
+                                    xhttp.onreadystatechange = function() 
+                                    {
+                                        if (xhttp.readyState == 4 && xhttp.status == 200)
+                                        {
+                                            alert(xhttp.responseText);
+                                            var btn_register = document.getElementById("register");
+                                            btn_register.style.display = "none";
+                                        } 
+                                            
+                                    };
+                                    xhttp.open("POST","http://localhost:8000/welcomepage/onetaplogin/",true);
+                                    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+                                    xhttp.send("eventid={{event.event_id}}&clubid={{event.club_id}}");
+                                }  
+                                else
+                                {                              
+                                    window.alert("Please log in to continue");
+                                }
+                            }
+                        </script>
+                        
+                        <a id="register" class="btn btn-primary btn-lg" href="#info" onclick="register()">Register</a>
+                    </center> 	
             </div>
         </div><hr>
     </section>
@@ -224,11 +273,63 @@
 <section id="comments">
         <div class="container">
             <div class="box">
-                    <center><h2>Comments</h2></center>
-                               <textarea name="comment" cols="100" rows="10" ... ></textarea>
-                               <a class="btn btn-primary btn-lg" href="#">Comment</a>
+                <center><h2>Comments</h2></center>
+                <div style="background-color: #D3D3D3" id="comment_box">
+                {% if comment_list %}
+                    {% for each in comment_list %}
+                    <strong><h4>{{each|get_item_value:"name"}} {{each.comments.creat_date}}</h4></strong>
+                    <p>{{each.comments.comment}}</p>
+                    {%endfor%}
+                {%endif%}
+                </div>
+                <script type="text/javascript">
+                    function add_comment()
+                    {
+                        if({{isLoggedIn}})
+                        {
+                            //AJAX call
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.onreadystatechange = function() 
+                            {
+                                var textbox = document.getElementById("comment_text")
+                                comment = textbox.value;                                
+                                if (xhttp.readyState == 4 && xhttp.status == 200)
+                                {
+                                    alert("Comment successfully added!");
+                                    //Code to add new node
+                                    var comment_box = document.getElementById("comment_box");
+                                    var new_header = document.createElement("H4");
+                                    var x = new Date();
+                                    var ampm = x.getHours() >= 12 ? 'pm' : 'am';
+                                    var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+                                    var datetime = monthNames[x.getMonth()] + " " + x.getDate() + "," + x.getFullYear() + ", " + x.getHours() + ":" + x.getMinutes() + " " + ampm;
+                                    new_header.innerHTML = xhttp.responseText + " " + datetime;
+                                    var new_comment = document.createTextNode(comment);
+                                    comment_box.appendChild(new_header);
+                                    comment_box.appendChild(new_comment);
+                                    para = document.createElement("P");
+                                    para.style.backgroundColor="#FFFFFF"
+                                    comment_box.appendChild(para);
+                                    textbox.value = ""      
+                                } 
+                                    
+                            };
+                            xhttp.open("POST","http://localhost:8000/welcomepage/add_comments/",true);
+                            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+                            xhttp.send("eventid={{event.event_id}}&comment="+comment);                            
+                        }
+                        else
+                        {
+                            window.alert("Please login to comment");
+                        }
+                    }
+
+                </script>
+                <textarea id="comment_text" name="comment" cols="80" rows="3" ... ></textarea>
+                <a class="btn btn-primary btn-lg"  onclick="add_comment()" href="#comments">Comment</a>
             </div>
-        </div><hr>
+        </div>
+        <hr>
     </section>
 
 

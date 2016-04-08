@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 
-
 branch_choice = (("CSE","Computer Engineering"),
 				("ISE","Information Engineering"),
 				("ME","Mechanical Engineering"),
@@ -110,7 +109,7 @@ class Register(models.Model):
 	sem = models.CharField(max_length=2,null=True)
 
 	def __str__(self):
-		return self.club_id
+		return self.club_id + " " + self.name
 
 	class Meta:
 		unique_together = ('event_id','usn','club_id')
@@ -133,6 +132,16 @@ class Pending_transactions(models.Model):
 	class Meta:
 		unique_together = (("buyer_id","seller"))
 		
+
+class Comments(models.Model):
+
+	usn = models.CharField(max_length=10)
+	event_id = models.IntegerField()
+	comment = models.CharField(max_length=100000000000000)
+	creat_date = models.DateTimeField('date published')
+
+	class Meta:
+		unique_together =(("usn","creat_date"))
 
 
 

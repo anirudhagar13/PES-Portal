@@ -13,6 +13,7 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
+from django.template.defaulttags import register
 
 # Create your views here.
 
@@ -115,9 +116,19 @@ def render_event(request, template="event.html"):
 		
 	event_id = request.GET.get("event_id")
 	event = Event.objects.get(event_id=event_id)
-	
-	return render(request, "welcomepage/event.html",{"event":event})
-
+	comments = Comments.objects.filter(event_id=event_id)
+	names = list()
+	for each_comment in comments:
+		names.append((Signup.objects.get(usn=each_comment.usn)).name)
+	comment_list = list()
+	for i in range(len(names)):
+		comment_list.append({"name":names[i],"comments":comments[i]})
+	if usn:
+		isLoggedIn = 'true'
+	else:
+		isLoggedIn = 'false'
+	print comment_list
+	return render(request, "welcomepage/event.html",{"event":event,"isLoggedIn":isLoggedIn,"comment_list":comment_list})
 
 def render_reset(request):
 	events = Event.objects.all()
@@ -136,3 +147,44 @@ def render_reset(request):
 		except:
 			return render(request, "welcomepage/reset.html", {"events":events,"clubs":clubs,"NO_USER":True})
 	return render(request, "welcomepage/reset.html",{"events":events,"clubs":clubs})
+
+#Takes care of One tap login
+@csrf_exempt
+def register_one_tap(request):
+
+	#user is logged in for sure, no need to check for exceptions
+	usn = request.session["usn"]
+	user = Signup.objects.get(usn=usn)
+	
+	if request.method == "POST":
+		parameters = request.POST
+		eventid = parameters.get('eventid')
+		clubid = parameters.get("clubid")
+		new_registration = Register(club_id=clubid,event_id=eventid,usn=usn,name=user.name,email=user.email,phone=user.phone,dept=user.dept,sem=user.sem)
+		try:
+			new_registration.save()
+			return HttpResponse("Congrats, you have been registered!")
+		except:
+			return HttpResponse("Sorry, cannot register again!")
+
+
+#Saves comments of users
+@csrf_exempt
+def add_comment(request):
+	#user is logged in for sure, no need to check for exceptions
+	usn = request.session["usn"]
+	user = Signup.objects.get(usn=usn)
+	if request.method == "POST":
+		parameters = request.POST
+		eventid = parameters.get('eventid')
+		comment = parameters.get('comment')
+		new_comment = Comments(usn=usn,event_id=eventid,comment=comment,creat_date=timezone.now())
+		try:
+			new_comment.save()			
+			return HttpResponse((Signup.objects.get(usn=usn)).name)
+		except:
+			return HttpResponse("Oops! Something is wrong!")
+
+@register.filter
+def get_item_value(dictionary,key):
+	return dictionary.get(key)
