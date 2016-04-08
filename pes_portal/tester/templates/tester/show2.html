@@ -1,59 +1,91 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Registrations</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="{%static 'w3.css'%}">
-	<script type="text/javascript">
-		function init()
-		{
-			box = document.getElementById('id_rows');				//textbox sent from views to store list
-			hid_form = document.getElementById('data_storage');		//Hidden form to store ticked chekbox list
-			hid_form.style.visibility="hidden";
-		}
+{% extends 'welcomepage/club_base.html' %}
+{% block content %}
 
-		function send_checklist(event)
-		{
-			input_check = document.getElementsByName('check_delete');	//Input type checkbox array
-			str = "";
-			for(var i in input_check)
-			{
-				var x=input_check[i];
-				if(x.checked)											//Identifying elements that are checked
-					str = i + "," + str;
-			}
+<script type="text/javascript">
+        function init()
+        {
+            window.addEventListener("click",remove_modals);
+            //Here my part overrides
+            box = document.getElementById('id_rows');               //textbox sent from views to store list
+            hid_form = document.getElementById('data_storage');     //Hidden form to store ticked chekbox list
+            hid_form.style.visibility="hidden";
+        }
 
-			box.value = str;											//Storing checklist to send to views
-		}
-	</script>
-</head>
-<body class="w3-container" background="{% static "college_images/pes10.jpg" %}" style="background-repeat:no-repeat;background-size: cover;" onload = "init()">
-<h1 class="w3-tag w3-xxlarge w3-padding w3-round-large w3-indigo w3-center w3-animate-zoom" id = "heading">Event : {{ name }}</h1>
-<table class="w3-table w3-bordered w3-hover-shadow w3-card-4 w3-animate-opacity">
-<tr class="w3-red">
-	<th>  </th>
-	<th> Name </th>
-	<th> Email </th>
-	<th> Phone No </th>
-	<th> Branch </th>
-	<th> Sem </th>
-</tr>
-{% for p in form %}
-       <tr class="w3-brown w3-hover-teal">
-        <td><input type="checkbox" name="check_delete"></td>
-        <td>{{p.name}}</td>
-        <td>{{p.email}}</td>
-        <td>{{p.phone}}</td>
-        <td>{{p.dept}}</td>
-        <td>{{p.sem}}</td>
-        </tr>
-{% endfor %}
-</table>
-<form method="POST" action="">{% csrf_token %}
-<div id="data_storage">{{ check.as_p }}</div>
-<input class="w3-btn w3-xlarge w3-round-xxlarge w3-pale-red w3-hover-teal" type = 'submit' value="Delete Entries" onclick = "send_checklist()"></input>
-</form> 
-</body>
-</html>
+        function send_checklist(event)
+        {
+            input_check = document.getElementsByName('check_delete');   //Input type checkbox array
+            str = "";
+            for(var i in input_check)
+            {
+                var x=input_check[i];
+                if(x.checked)                                           //Identifying elements that are checked
+                    str = i + "," + str;
+            }
 
+            box.value = str;                                            //Storing checklist to send to views
+        }
+    </script>
+    
+<section id="reg_mgmt">
+<!-- Page Content -->
+<div class="container"><div class="box">
+<!-- MY PART -->                       
+    <h1 class="w3-tag w3-xxlarge w3-padding w3-round-large w3-indigo w3-center w3-animate-zoom" id = "heading">Event : {{ name }}</h1><br/><br/>
+    <table class="w3-table w3-bordered w3-hover-shadow w3-card-4 w3-animate-opacity">
+    <tr class="w3-red">
+        <th>  </th>
+        <th> Name </th>
+        <th> Email </th>
+        <th> Phone No </th>
+        <th> Branch </th>
+        <th> Sem </th>
+    </tr>
+    {% for p in form %}
+           <tr class="w3-brown w3-hover-teal">
+            <td><input type="checkbox" name="check_delete"></td>
+            <td>{{p.name}}</td>
+            <td>{{p.email}}</td>
+            <td>{{p.phone}}</td>
+            <td>{{p.dept}}</td>
+            <td>{{p.sem}}</td>
+            </tr>
+    {% endfor %}
+    </table>
+    <form method="POST" action="">{% csrf_token %}
+    <div id="data_storage">{{ check.as_p }}</div>
+    <input class="w3-btn w3-xlarge w3-round-xxlarge w3-blue w3-hover-teal" type = 'submit' value="Delete Entries" onclick = "send_checklist()"></input>
+    </form>  
+</div>                
+</div>
+</section>
+<br/>
+<br/>
+
+<!--Redundant Contact field-->
+    
+    <section id="contact">
+        <div class="container">
+            <div class="box last">
+                <div class="row">
+                    <h1>Contact</h1>
+                        <address>
+                                    <strong>Team Members</strong><br>
+                                    Anirudh Manisha Mohit Nagasundar Navneet Neha<br>
+                                    Niket Parikshit Prafful Rohan Romasha Sharath Smitha<br>
+                                  
+                        </address>
+                                            
+                </div><!--/.row-->
+            </div><!--/.box-->
+        </div><!--/.container-->
+    </section><!--/#contact-->
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                
+            </div>
+        </div>
+    </footer><!--/#footer-->
+  
+{% endblock %}

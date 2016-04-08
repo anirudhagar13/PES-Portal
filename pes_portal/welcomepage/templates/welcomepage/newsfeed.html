@@ -43,356 +43,356 @@ function check_fields()
 </head>
 
 <body onload="init()" data-spy="scroll" data-target="#navbar" data-offset="0" >
-  <header id="header" role="banner">
-    <div class="container">
-      <div id="navbar" class="navbar navbar-inverse">
-        <div class="navbar-header">
-          
-          
+<header id="header" role="banner">
+        <div class="container">
+            <div id="navbar" class="navbar navbar-inverse" style="background-color:white;border:white">
+                <div class="navbar-header">
+                    
+                  
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li  onclick="location.href='newsfeed';"><a>Home</a></li>
+						<li  class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Clubs<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+							{% for club in clubs%}
+								<li onclick="location.href='/club/?club_id={{club.club_id}}';"><a>{{club.club_name}}</a></li>
+							{%endfor%}
+							</ul>
+						</li>
+						<li  onclick="location.href='bookexchange';"><a>Book Exchange</a></li>
+						<li ><a href="#contact">Contact</a></li>
+						{%if CLUBID%}
+						<li onclick="location.href='tester';"><a>Manage Events</a></li>
+						{%endif%}
+						{%if LOGGED.name%}
+						<li class = "lead" style="position:absolute; left: 600px ; top:15px">Hello {{LOGGED.name}}!</li>
+						<form name="logoutform" method="POST">
+						<li><button name="logout" value="logout" style="position:absolute; left:900px" class="btn btn-primary btn-lg">Logout</button></li>
+						</form>
+						{%else%}
+						<li><button style="position:absolute; left:300px" id='modal-launcher' class="btn btn-primary btn-lg" data-toggle="modal" data-target="#login-modal">Login</button></li>
+						<li><button style="position:absolute; left:400px" id='modal-launcher' class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup-modal">Sign Up</button></li>
+						{%endif%}
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="newsfeed">Home</a></li>
-            <li  class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Clubs<span class="caret"></span></a>
-             <ul class="dropdown-menu">
-               {% for club in clubs%}
-               <li><a href="/club/?club_id={{club.club_id}}">{{club.club_name}}</a></li>
-               {%endfor%}
-             </ul>
-           </li>
-           <li><a href="/bookexchange">Book Exchange</a></li>
-           <li><a href="#contact">Contact</a></li>
-           {%if CLUBID%}
-           <li ><a>Manage Events</a></li>
-           {%endif%}
-           {%if LOGGED.name%}
-           <li class = "lead" style="position:absolute; left: 600px ; top:15px">Hello {{LOGGED.name}}!</li>
-           <form name="logoutform" method="POST">
-            <li><button name="logout" value="logout" style="position:absolute; left:900px" class="btn btn-primary btn-lg">Logout</button></li>
-          </form>
-          {%else%}
-          <li><button style="position:absolute; left:300px" id='modal-launcher' class="btn btn-primary btn-lg" data-toggle="modal" data-target="#login-modal">Login</button></li>
-          <li><button style="position:absolute; left:400px" id='modal-launcher' class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signup-modal">Sign Up</button></li>
-          {%endif%}
-        </ul>
-      </div>
-    </div>
-  </div>
-</header><!--/#header-->
-
+    </header><!--/#header-->
+	
 {%if PROBLEM_LOGGING%}
 <div id="loginproblem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
-   <div class="modal-content">
-    <div class="modal-header login_modal_header">
-      <h2 class="modal-title" id="myModalLabel">There was a problem with your username or password</h2>
-    </div>
-  </div>
-</div>	
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<h2 class="modal-title" id="myModalLabel">There was a problem with your username or password</h2>
+      		</div>
+		</div>
+	</div>	
 </div>
 {%endif%}
 
 {%if INTEGRITY_ERROR%}
 <div id="userexists" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
-   <div class="modal-content">
-    <div class="modal-header login_modal_header">
-      <h2 class="modal-title" id="myModalLabel">There was a problem signing you up. You may already have an account.</h2>
-    </div>
-  </div>
-</div>
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<h2 class="modal-title" id="myModalLabel">There was a problem signing you up. You may already have an account.</h2>
+      		</div>
+  		</div>
+	</div>
 </div>
 {%endif%}
 
 {%if MAIL_SENT%}
 <div id="emailsent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
-   <div class="modal-content">
-    <div class="modal-header login_modal_header">
-      <h2 class="modal-title" id="myModalLabel">An email was sent to your account with your password</h2>
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<h2 class="modal-title" id="myModalLabel">An email was sent to your account with your password</h2>
+      		</div>
+      	</div>
     </div>
-  </div>
-</div>
 </div>
 {%endif%}
 
 {%if NO_USER%}
 <div id="nouser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
-   <div class="modal-content">
-    <div class="modal-header login_modal_header">
-      <h2 class="modal-title" id="myModalLabel">NO SUCH USER</h2>
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<h2 class="modal-title" id="myModalLabel">NO SUCH USER</h2>
+      		</div>
+		</div>
     </div>
-  </div>
-</div>
 </div>
 {%endif%}
 
 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
-   <div class="modal-content">
-    <div class="modal-header login_modal_header">
-      
-      <h2 class="modal-title" id="myModalLabel">Login to Your Account</h2>
-    </div>
-    <div class="modal-body login-modal">
-     <div class="clearfix"></div>
-     <div id='social-icons-conatainer'>
-       <div class='modal-body-left'>
-        <form action="" name="loginform" method="POST">
-          
-          <div class="form-group">
-            <input type="text" id="usn" name="usn" placeholder="Enter your USN" value="" class="form-control login-field">
-            <i class="fa fa-user login-field-icon"></i>
-          </div>
-          
-          <div class="form-group">
-            <input type="password" id="login-pass" name="password" placeholder="Password" value="" class="form-control login-field">
-            <i class="fa fa-lock login-field-icon"></i>
-          </div>
-          
-          <input type="submit" value="Login" class="btn btn-success modal-login-btn"/>
-          
-        </form>
-        
-        <input type="button" value="Lost your password?" data-toggle="modal" data-target="#lostpwd-modal"/>
-        
-      </div>
-      
-    </div>																												
-    <div class="clearfix"></div>
-    
-    
-  </div>
-</div>
-<div class="clearfix"></div>
-</div>
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		
+        		<h2 class="modal-title" id="myModalLabel">Login to Your Account</h2>
+      		</div>
+      		<div class="modal-body login-modal">
+      			<div class="clearfix"></div>
+      			<div id='social-icons-conatainer'>
+	        		<div class='modal-body-left'>
+						<form action="" name="loginform" method="POST">
+						
+						<div class="form-group">
+		              		<input type="text" id="usn" name="usn" placeholder="Enter your USN" value="" class="form-control login-field">
+		              		<i class="fa fa-user login-field-icon"></i>
+		            	</div>
+		
+		            	<div class="form-group">
+		            	  	<input type="password" id="login-pass" name="password" placeholder="Password" value="" class="form-control login-field">
+		              		<i class="fa fa-lock login-field-icon"></i>
+		            	</div>
+						
+		            	<input type="submit" value="Login" class="btn btn-success modal-login-btn"/>
+		            	
+						</form>
+						
+						<input type="button" value="Lost your password?" data-toggle="modal" data-target="#lostpwd-modal"/>
+						
+					</div>
+	        	
+	        	</div>																												
+        		<div class="clearfix"></div>
+        		
+					
+        		</div>
+      		</div>
+      		<div class="clearfix"></div>
+      		</div>
 </div>
 
 <div class="modal fade" id="lostpwd-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
-   <div class="modal-content">
-    <div class="modal-header login_modal_header">
-      
-      <h2 class="modal-title" id="myModalLabel">Give us your USN and we shall email you your password</h2>
-    </div>
-    <div class="modal-body login-modal">
-     <div class="clearfix"></div>
-     <div id='social-icons-conatainer'>
-       <div class='modal-body-left'>
-        <form action="" name="lostpwd" method="POST">
-          
-          <div class="form-group">
-           <input type="text"  name="userusn" placeholder="Enter your USN" value="" class="form-control login-field">
-           <i class="fa fa-user login-field-icon"></i>
-         </div>
-         
-         <input type="submit" value="Submit" class="btn btn-success modal-login-btn"/>
-         
-       </form>						
-     </div>
-     
-   </div>																												
-   <div class="clearfix"></div>
-   
- </div>
-</div>
-<div class="clearfix"></div>
-</div>
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		
+        		<h2 class="modal-title" id="myModalLabel">Give us your USN and we shall email you your password</h2>
+      		</div>
+      		<div class="modal-body login-modal">
+      			<div class="clearfix"></div>
+      			<div id='social-icons-conatainer'>
+	        		<div class='modal-body-left'>
+						<form action="" name="lostpwd" method="POST">
+						
+						<div class="form-group">
+							<input type="text"  name="userusn" placeholder="Enter your USN" value="" class="form-control login-field">
+		              		<i class="fa fa-user login-field-icon"></i>
+		            	</div>
+	
+		            	<input type="submit" value="Submit" class="btn btn-success modal-login-btn"/>
+		            	
+						</form>						
+					</div>
+	        	
+	        	</div>																												
+        		<div class="clearfix"></div>
+		
+        		</div>
+      		</div>
+      		<div class="clearfix"></div>
+      		</div>
 </div>
 
 <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
-   <div class="modal-content">
-    <div class="modal-header login_modal_header">
-      
-      <h2 class="modal-title" id="myModalLabel">Sign Up</h2>
-    </div>
-    <div class="modal-body login-modal">
-     <div class="clearfix"></div>
-     <div id='social-icons-conatainer'>
-       <div class='modal-body-left'>
-        <form action="" name="signupform" onsubmit="return check_fields()" method="POST">
-          <div class="form-group">
-            <input type="text" id="username" name="username" placeholder="Enter your name" value="" class="form-control login-field">
-            <i class="fa fa-user login-field-icon"></i>
-            <input type="text" id="usn" name="usn" placeholder="Enter your usn" value="" class="form-control login-field">
-            <i class="fa fa-user login-field-icon"></i>
-            <input type="email" id="emailid" name="email" placeholder="Enter your email id" value="" class="form-control login-field">
-            <i class="fa fa-user login-field-icon"></i>
-            <input type="tel" id="phone" name="mobile" placeholder="Enter mobile number" value="" class="form-control login-field">
-            <i class="fa fa-user login-field-icon"></i>
-            <select id="dept" name="dept" class="form-control login-field">
-              <option value = "">--Select Your Department--</option>
-              <option value = "eee">Electrical and Electronics Engineering</option>
-              <option value = "cse">Computer Science and Engineering</option>
-              <option value = "civil">Civil Engineering</option>
-              <option value = "ece">Electronics and Communication Engineering</option>
-              <option value = "ise">Information Science Engineering</option>
-              <option value = "me">Mechanical Engineering</option>
-              <option value = "bt">Biotechnology Engineering</option>
-              <option value = "te">Telecommunication Engineering</option>
-            </select>
-            <i class="fa fa-user login-field-icon"></i>
-            <select id="sem" name="sem" class="form-control login-field">
-              <option value = "0">--Select your Semester--</option>
-              <option value = "1">I</option>
-              <option value = "2">II</option>
-              <option value = "3">III</option>
-              <option value = "4">IV</option>
-              <option value = "5">V</option>
-              <option value = "6">VI</option>
-              <option value = "7">VII</option>
-              <option value = "8">VIII</option>
-            </select>
-            <i class="fa fa-user login-field-icon"></i>
-          </div>
-          <div class="form-group">
-            <input type="password" name="password1" id="pass" placeholder="Password" value="" class="form-control login-field">
-            <i class="fa fa-lock login-field-icon"></i>
-            <input type="password" name="password2" id="confirmpass" placeholder="Confirm Password" value="" class="form-control login-field">
-            <i class="fa fa-lock login-field-icon"></i>
-            
-            <label id="passdontmatch" class="form-control login-field"></label>
-            
-          </div>
-          <input type="submit" value="Sign Up" class="btn btn-success modal-login-btn"/>
-        </form>
-        
-      </div>
-    </div>																												
-    <div class="clearfix"></div>
-  </div>
-  <div class="clearfix"></div>
-  <div class="modal-footer login_modal_footer">
-  </div>
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		
+        		<h2 class="modal-title" id="myModalLabel">Sign Up</h2>
+      		</div>
+      		<div class="modal-body login-modal">
+      			<div class="clearfix"></div>
+      			<div id='social-icons-conatainer'>
+	        		<div class='modal-body-left'>
+	        			<form action="" name="signupform" onsubmit="return check_fields()" method="POST">
+						<div class="form-group">
+		              		<input type="text" id="username" name="username" placeholder="Enter your name" value="" class="form-control login-field">
+		              		<i class="fa fa-user login-field-icon"></i>
+							<input type="text" id="usn" name="usn" placeholder="Enter your usn" value="" class="form-control login-field">
+		              		<i class="fa fa-user login-field-icon"></i>
+							<input type="email" id="emailid" name="email" placeholder="Enter your email id" value="" class="form-control login-field">
+		              		<i class="fa fa-user login-field-icon"></i>
+							<input type="tel" id="phone" name="mobile" placeholder="Enter mobile number" value="" class="form-control login-field">
+							<i class="fa fa-user login-field-icon"></i>
+							<select id="dept" name="dept" class="form-control login-field">
+								<option value = "">--Select Your Department--</option>
+								<option value = "eee">Electrical and Electronics Engineering</option>
+								<option value = "cse">Computer Science and Engineering</option>
+								<option value = "civil">Civil Engineering</option>
+								<option value = "ece">Electronics and Communication Engineering</option>
+								<option value = "ise">Information Science Engineering</option>
+								<option value = "me">Mechanical Engineering</option>
+								<option value = "bt">Biotechnology Engineering</option>
+								<option value = "te">Telecommunication Engineering</option>
+							</select>
+							<i class="fa fa-user login-field-icon"></i>
+							<select id="sem" name="sem" class="form-control login-field">
+								<option value = "0">--Select your Semester--</option>
+								<option value = "1">I</option>
+								<option value = "2">II</option>
+								<option value = "3">III</option>
+								<option value = "4">IV</option>
+								<option value = "5">V</option>
+								<option value = "6">VI</option>
+								<option value = "7">VII</option>
+								<option value = "8">VIII</option>
+							</select>
+							<i class="fa fa-user login-field-icon"></i>
+						</div>
+						<div class="form-group">
+		            	  	<input type="password" name="password1" id="pass" placeholder="Password" value="" class="form-control login-field">
+		              		<i class="fa fa-lock login-field-icon"></i>
+							<input type="password" name="password2" id="confirmpass" placeholder="Confirm Password" value="" class="form-control login-field">
+		              		<i class="fa fa-lock login-field-icon"></i>
+							
+							<label id="passdontmatch" class="form-control login-field"></label>
+							
+						</div>
+						<input type="submit" value="Sign Up" class="btn btn-success modal-login-btn"/>
+						</form>
+						
+	        		</div>
+	        	</div>																												
+        		<div class="clearfix"></div>
+      		</div>
+      		<div class="clearfix"></div>
+      		<div class="modal-footer login_modal_footer">
+      		</div>
+    	</div>
+  	</div>
 </div>
-</div>
-</div>
 
+	
+	
+    <section id="main-slider" style="padding:100px 0;height:300px;" class="carousel">
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="container">
+                    <div class="carousel-content">
+                        <h1>PES Times</h1>
+                        <p class="lead">A single web portal for all the events happening in PES</p>
+                    </div>
+                </div>
+            </div><!--/.item-->
+            <div class="item">
+                <div class="container">
+                    <div class="carousel-content">
+                        <h1>Book Exchange</h1>
+                        <p class="lead">Check out our Book Exchange Forum and get all the books you need in a single click</p>
+                    </div>
+                </div>
+            </div><!--/.item-->
+        </div><!--/.carousel-inner-->
+        <a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
+        <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>
+    </section><!--/#main-slider-->
 
-
-<section id="main-slider" style="padding:100px 0;height:300px;" class="carousel">
-  <div class="carousel-inner">
-    <div class="item active">
-      <div class="container">
-        <div class="carousel-content">
-          <h1>PES Times</h1>
-          <p class="lead">A single web portal for all the events happening in PES</p>
-        </div>
-      </div>
-    </div><!--/.item-->
-    <div class="item">
-      <div class="container">
-        <div class="carousel-content">
-          <h1>Book Exchange</h1>
-          <p class="lead">Check out our Book Exchange Forum and get all the books you need in a single click</p>
-        </div>
-      </div>
-    </div><!--/.item-->
-  </div><!--/.carousel-inner-->
-  <a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
-  <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>
-</section><!--/#main-slider-->
-
-
-<section id="events">
-  <!-- Page Content -->
-  <div class="container"><div class="box">
-   
-    <!-- Page Heading -->
-    <div class="row">
-      <div class="col-lg-12">
-       <div class="center gap">
-        <h2>Events</h2>
-        <p class="lead">Here are a few events in PES</p>
-      </div><!--/.center-->
-    </div>
-  </div>
-  <!-- /.row -->
-
-  {%for event in events%}        
-  <div class="row">
-    <div class="col-md-7">
-      <a href="#">
-        <img class="img-responsive" src="http://placehold.it/700x300" alt="">
-      </a>
-    </div>
-    <div class="col-md-5">
-      <h3>{{event.event_name}}</h3>
-      <h6>{{event.event_date}} {{event.venue}}</h6>
-      <p>{{event.event_desc}}</p>
-      <a class="btn btn-primary" href="event?event_id={{event.event_id}}">View Event<span class="glyphicon glyphicon-chevron-right"></span></a>
-    </div>
-  </div>
-  <!-- /.row -->
-  <hr>
-  {%endfor%}
-  
-</div>
-</div>
-<!-- /.row -->
-
-<hr>
-</div>
-<!-- /.container -->
-</section>
-
-<section id="clubs">
-  <div class="container">
-    <div class="box">
-      <div class="center gap">
-        <h2>Clubs</h2>
-        <p class="lead">Here are a few clubs in PES</p>
-      </div><!--/.center-->
-      
-      <ul class="portfolio-items col-4">
-       {% for club in clubs%}
-       <li class="portfolio-item apps">
-        <div class="item-inner">
-          <div class="portfolio-image">
-            <img src="images/portfolio/thumb/item1.jpg" alt="">
-            <div class="overlay">
-              <a href="/club/?club_id={{club.club_id}}" title="Lorem ipsum dolor sit amet"><i class="icon-eye-open"></i></a>             
+	
+    <section id="events">
+	 <!-- Page Content -->
+	<div class="container"><div class="box">
+	
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                 <div class="center gap">
+                    <h2>Events</h2>
+                    <p class="lead">Here are a few events in PES</p>
+                </div><!--/.center-->
             </div>
-          </div>
-          <h5>{{club.club_name}}</h5>
-          <h6>{{club.objective}}</h6>
         </div>
-      </li><!--/.portfolio-item-->
-      {%endfor%}
-      
-      
-    </ul>   
-  </div><!--/.box-->
-</div><!--/.container-->
-</section><!--/#portfolio-->
+        <!-- /.row -->
 
-<section id="contact">
-  <div class="container">
-    <div class="box last">
-      <div class="row">
-        <h1>Contact</h1>
-        <address>
-          <strong>Team Members</strong><br>
-          Anirudh Manisha Mohit Nagasundar Navneet Neha<br>
-          Niket Parikshit Prafful Rohan Romasha Sharath Smitha<br>
-          
-        </address>
+		{%for event in events%}        
+        <div class="row">
+            <div class="col-md-7">
+                <a href="#">
+                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3>{{event.event_name}}</h3>
+                <h6>{{event.event_date}} {{event.venue}}</h6>
+                <p>{{event.event_desc}}</p>
+                <a class="btn btn-primary" href="event?event_id={{event.event_id}}">View Event<span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+		{%endfor%}
         
-      </div><!--/.row-->
-    </div><!--/.box-->
-  </div><!--/.container-->
-</section><!--/#contact-->
+        </div>
+		</div>
+        <!-- /.row -->
 
-<footer id="footer">
-  <div class="container">
-    <div class="row">
-      
+        <hr>
     </div>
-  </div>
-</footer><!--/#footer-->
+    <!-- /.container -->
+	</section>
+	
+	<section id="clubs">
+        <div class="container">
+            <div class="box">
+                <div class="center gap">
+                    <h2>Clubs</h2>
+                    <p class="lead">Here are a few clubs in PES</p>
+                </div><!--/.center-->
+				
+                <ul class="portfolio-items col-4">
+					{% for club in clubs%}
+                    <li class="portfolio-item apps">
+                        <div class="item-inner">
+                            <div class="portfolio-image">
+                                <img src="images/portfolio/thumb/item1.jpg" alt="">
+                                <div class="overlay">
+                                    <a href="/club/?club_id={{club.club_id}}" title="Lorem ipsum dolor sit amet"><i class="icon-eye-open"></i></a>             
+                                </div>
+                            </div>
+                            <h5>{{club.club_name}}</h5>
+							<h6>{{club.objective}}</h6>
+                        </div>
+                    </li><!--/.portfolio-item-->
+                    {%endfor%}
+					
+					
+                </ul>   
+            </div><!--/.box-->
+        </div><!--/.container-->
+    </section><!--/#portfolio-->
+	
+	<section id="contact">
+        <div class="container">
+            <div class="box last">
+                <div class="row">
+                    <h1>Contact</h1>
+                        <address>
+                                    <strong>Team Members</strong><br>
+                                    Anirudh Manisha Mohit Nagasundar Navneet Neha<br>
+									Niket Parikshit Prafful Rohan Romasha Sharath Smitha<br>
+                                  
+                        </address>
+                                            
+                </div><!--/.row-->
+            </div><!--/.box-->
+        </div><!--/.container-->
+    </section><!--/#contact-->
 
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                
+            </div>
+        </div>
+    </footer><!--/#footer-->
 
-
+    
+    
 {% endblock %}

@@ -1,16 +1,50 @@
+{% extends 'welcomepage/club_base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Club-Admin Interface</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="{%static 'w3.css'%}">
-</head>
-<body class="w3-container" background="{% static "college_images/pes3.jpg" %}" style="background-repeat:no-repeat;background-size: cover;">
-<div style = "text-align: center;margin-top: 150px">
-<a href="create/{{fill_cid}}" class="w3-btn w3-xxlarge w3-round-xxlarge w3-indigo w3-hover-teal w3-animate-zoom">Event Creation</a><br/><br/><br/>
-<a href="event/{{fill_cid}}" class="w3-btn w3-xxlarge w3-round-xxlarge w3-indigo w3-hover-teal w3-animate-zoom">Event Management</a><br/><br/><br/>
-<a href="promote/{{fill_cid}}" class="w3-btn w3-xxlarge w3-round-xxlarge w3-indigo w3-hover-teal w3-animate-zoom">Event Promotion</a>
+{% block content %}
+
+<section id="main_admin">
+<!-- Page Content -->
+<div class="w3-container"><div class="box">
+        <!-- MY PART -->                       
+				<div style="text-align: center;margin-top: 50px">
+				<a href="http://localhost:8000/tester/create/OU01" class="w3-btn w3-xxlarge w3-round-xxlarge w3-blue w3-hover-teal w3-animate-zoom">Event Creation</a><br><br><br>
+				<a href="http://localhost:8000/tester/event/OU01" class="w3-btn w3-xxlarge w3-round-xxlarge w3-blue w3-hover-teal w3-animate-zoom">Event Management</a><br><br><br>
+				<a href="http://localhost:8000/tester/promote/OU01" class="w3-btn w3-xxlarge w3-round-xxlarge w3-blue w3-hover-teal w3-animate-zoom">Event Promotion</a>
+				</div>	
+                <br/><br/>	        
+
 </div>
-</body>
-</html>
+</div>
+
+</section>
+<br/>
+<br/>
+
+	<!--Redundant Contact field-->
+    
+	<section id="contact">
+        <div class="container">
+            <div class="box last">
+                <div class="row">
+                    <h1>Contact</h1>
+                        <address>
+                                    <strong>Team Members</strong><br>
+                                    Anirudh Manisha Mohit Nagasundar Navneet Neha<br>
+									Niket Parikshit Prafful Rohan Romasha Sharath Smitha<br>
+                                  
+                        </address>
+                                            
+                </div><!--/.row-->
+            </div><!--/.box-->
+        </div><!--/.container-->
+    </section><!--/#contact-->
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                
+            </div>
+        </div>
+    </footer><!--/#footer-->
+  
+{% endblock %}
