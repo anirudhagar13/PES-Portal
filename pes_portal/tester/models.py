@@ -133,6 +133,12 @@ class Pending_transactions(models.Model):
 	class Meta:
 		unique_together = (("buyer_id","seller"))
 		
+class Comments(models.Model):
 
+	usn = models.CharField(max_length=10)
+	event_id = models.IntegerField()
+	comment = models.CharField(max_length=100000000000000)
+	creat_date = models.DateTimeField('date published')
 
-
+	class Meta:
+		unique_together =(("usn","creat_date"))
