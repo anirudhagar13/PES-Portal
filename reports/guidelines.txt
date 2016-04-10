@@ -1,0 +1,15 @@
+The following are the guidelines that we aim to follow in each od the files of our project.
+
+	1. Meaningful Documentation
+		- Must describe what is not obvious from a piece of code
+		- No code must be left commented out
+		- Every function must be documented with a brief description of its purpose 
+	2. To avoid repeated code, methods and functions must be used
+	3. Neat indentation (for better readability)
+	4. Single convention for variable names and function names
+		- local variables and function names must be in lower case and '_' is used as separation	
+	5. Variable names should be meaningful and describe the purpose
+	6. Variable names must be of length between 1-15 characters
+	7. The number of lines per function should not exceed 100
+	8. All styling must be moved to css files. HTML files contain only markup
+	9. All css, js and image files must be moved to the static directory in the Django framework

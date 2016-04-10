@@ -1,50 +1,83 @@
-{% load staticfiles %}
-<html>
-<head>
-<meta name="viewport" content="width=device-width,initial scale=1">
+{% extends 'welcomepage/base.html' %}
+{%block content%}
 
-<link rel="stylesheet" href= "{% static 'css/w3.css'%}">
-<link rel="stylesheet" href="{% static 'css/up_for_sale.css' %}">
-<link rel="stylesheet" href="{% static 'css/toastr.css' %}">
-<script type="text/javascript" src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
-
-
-<script type="text/javascript" src="{% static 'js/toastr.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/up_for_sale.js' %}"></script>
+	<section id="main-slider" class="carousel" >
+		<div class="carousel-inner">
+			<div class="item active">
+				<div class="container">
+					<div class="carousel-content">
 
 
-</head>
-<body>
-<div class="w3-container" id="sale_table">
-<div class="w3-brown w3-container" id="search">
-	<input placeholder="Search"class="w3-input w3-light-grey" style="width:40%" type="text" id="searchbar"/>
+						<h1>BookExchange</h1>
 
+
+						<p class="lead">Find and Exchange Books</p>
+
+
+
+					</div>
+				</div>
+			</div><!--/.item-->
+
+		</div><!--/.carousel-inner-->
+        <!---<a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
+        <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>-->
+    </section><!--/#main-slider-->
+
+
+    <div class="container"><div class="box">
+		
+		{%if LOGGED.name%}
+		<input type="button" class="btn btn-primary btn-lg" value="Upload Book" onclick="location.href='/bookexchange/upload_book';"/>
+    	<div class="w3-container" id="sale_table">
+    		<div class="w3-indigo w3-container" id="search">
+    			<input placeholder="Search"class="w3-input w3-light-grey" style="width:40%" type="text" id="searchbar"/>
+
+    		</div>
+    		<table class="w3-table w3-striped w3-bordered w3-card-4 w3-white" id="table">
+    			<thead>
+    				<tr class="w3-black">
+    					<th>Seller Id</th>
+    					<th>Book Name</th>
+    					<th>Action</th>
+    				</tr>
+    			</thead>
+		
+    			{% for entry in data %}
+    			<tr>
+    				<td>{{entry.usn}}</td>
+    				<td>{{entry.book_name}}</td>
+    				<td><button class="w3-btn w3-ripple w3-green">Borrow</button></td>
+    			</tr>
+    			{% endfor %}
+    		
+    		</table>
+    		<div class="pagination">
+    <span class="step-links">
+        {% if data.has_previous %}
+            <a href="?page={{ data.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ data.number }} of {{ data.paginator.num_pages }}.
+        </span>
+
+        {% if data.has_next %}
+            <a href="?page={{ data.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+			</div>
+    </div>
+    {%else%}
+	<label class="form-control login-field">You need to login to view books</label>	
+	{%endif%}
+	
+	</div>
 </div>
-<table class="w3-table w3-striped w3-bordered w3-card-4 w3-white" id="table">
-<thead>
-<tr class="w3-brown">
-  <th>Seller Id</th>
-  <th>Book Name</th>
-  <th>Action</th>
-</tr>
-</thead>
 
-
-
-
-	{% for entry in data %}
-	<tr>
-	<td>{{entry.usn}}</td>
-	<td>{{entry.book_name}}</td>
-	<td><button class="w3-btn w3-ripple w3-green">Borrow</button></td>
-	</tr>
-	{% endfor %}
-</table>
-</div>
 
 <script>
-init();
+init_book();
 </script>
 
-</body>
-</html>
+{%endblock%}

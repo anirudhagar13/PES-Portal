@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Club List</title>
+<style>
+html{
+	background: url(/static/images/4_8_wallpaper_plain.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+<style type="text/css">
+	table 
+	{
+    	border-collapse: collapse;
+    	width: 100%;
+	}
+
+	th, td
+	{
+	    border-bottom: 1px solid #ddd;
+	    padding: 15px;
+	    text-align: center;
+	    color:#666633;
+	}
+#cname
+	{
+	    border-bottom: 1px solid #ddd;
+	    padding: 15px;
+	    text-align: center;
+	    color:#666633;
+	}
+	h1{
+border: 2px solid green;
+border-radius: 6px;
+text-align:center;
+color:green;
+font-size:50px;
+font-family:Brush Script MT;
+background-color:skyblue;
+height:50px;
+margin-bottom:15px;
+}
+	th {
+    background-color: #4CAF50;
+    color: blue;
+	}
+	tr:hover {background-color: #85b7b7}
+	</style>
+</head>
+<body>
+<center><h1>List of All Clubs</h1></a>
+<br />
+{{ boldmessage }}
+{% if categories %}
+	<center><table border='3' style='border-color: blue; cellspacing='9' cellpadding='9'>
+
+	<th>Club id</th>
+	<th>Club Name</th>
+	<th>Created ON</th>
+	<!---<th> &#160;&#160;Objective &#160; &#160; </th> -->
+	{% for category in categories %}
+		
+		
+		<tr>
+		<td border='2'> <a id="cname" href="/index/club/{{ category.club_name }}">{{ category.club_id }}</a></td>
+		<td border='2'> <a id="cname" href="/index/club/{{ category.club_name }}">{{ category.club_name }}</a></td>
+		<td border='2'> <a id="cname" href="/index/club/{{ category.club_name }}">{{ category.club_name }}</a></td>
+		<!---<td border='2'><a id="cname" href="/index/club/{{ category.club_name }}">{{ category.objective }}</a></td>-->
+		</tr>
+	{% endfor %}
+</center></table>
+{% else %}
+	<strong>There are no categories present.</strong>
+{% endif %}
+
+<br><a href="/index/about/">About</a><br />
+</body>
+
+</html>
+
+

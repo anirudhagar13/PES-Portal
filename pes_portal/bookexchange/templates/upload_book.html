@@ -1,27 +1,48 @@
-{% load staticfiles %}
-<html>
-	<head>
-		<title>Upload Book</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href= "{% static 'css/w3.css'%}">
-		<link rel="stylesheet" href="{% static 'css/upload_book.css' %}">
-	</head>
+{% extends 'welcomepage/base.html' %}
+{%block content%}
 
-	<body background="{% static 'unnamed.jpg' %}">
-		<div class="w3-card-12 w3-white" id="upload_form">
-		<div class="w3-container w3-brown">
-  <h2>New Book</h2>
+	<section id="main-slider" class="carousel" >
+		<div class="carousel-inner">
+			<div class="item active">
+				<div class="container">
+					<div class="carousel-content">
+
+
+						<h1>BookExchange</h1>
+
+
+						<p class="lead">Find and Exchange Books</p>
+
+
+
+					</div>
+				</div>
+			</div><!--/.item-->
+
+		</div><!--/.carousel-inner-->
+        <!---<a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
+        <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>-->
+    </section><!--/#main-slider-->
+
+
+
+    <div class="container"><div class="box">
+
+    	<form method="POST" class="w3-container"> {% csrf_token %}
+    		{% for field in form %}
+    		<label class="w3-label w3-text-indigo" for="{{ field.name }}"><b>{{ field.label }}</b></label>
+    		{{ field }}
+    		<br/>
+    		{% endfor %}
+    		<button class="w3-btn w3-green" type="submit" id="submit_button"> Submit </button>
+
+    	</form>
+    </div>
 </div>
-		<form method="POST" class="w3-container"> {% csrf_token %}
-			{% for field in form %}
-    <label class="w3-label w3-text-brown" for="{{ field.name }}"><b>{{ field.label }}</b></label>
-    {{ field }}
-    <br/>
-{% endfor %}
-			<button class="w3-btn w3-brown" type="submit" id="submit_button"> Submit </button>
 
-		</form>
-	</div>
 
-	</body>
-</html>
+<script>
+init_book();
+</script>
+
+{%endblock%}

@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'welcomepage/', include('welcomepage.urls')),
     url(r'tester/', include('tester.urls')),
     url(r'bookexchange/', include('bookexchange.urls')),		 #Will redirect 127.0.0.1:8000 to url of blog application
+	url(r'club/', include('club.urls')),
 ]

@@ -4,8 +4,8 @@ from django.utils import timezone
 OPTIONS = (
 			("name", "Name"),
 			("email", "Email Id"),
-			("phone_no", "Phone No"),
-			("branch", "Branch"),
+			("phone", "Phone No"),
+			("dept", "Branch"),
 			("sem", "Sem"),
 		)
 

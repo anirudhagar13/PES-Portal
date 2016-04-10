@@ -3,13 +3,19 @@ Club_admin:
 >Styling
 >Postgres
 >Sweet Alert
+>Make it look like the welcomepage
 
 Welcomepage:
 >Postgres
->Logout
 >Sweet Alert
 
 Book Exchange:
 >Seller backend
 >Buttons 
 >Whole Interface(Headings,buttons,seller page)
+
+Events:
+>to do whole thing
+
+Clubs:
+>Content upload

@@ -1,0 +1,1 @@
+INSERT INTO tester_signup (usn,name,dept,email,dob,phone,sem,club_id) VALUES ("1PI13CS099","Neha M Kalibhat","neha.kalibhat@gmail.com","1995-12-29","7829782761","6");
