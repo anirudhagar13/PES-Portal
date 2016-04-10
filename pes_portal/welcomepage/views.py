@@ -155,12 +155,28 @@ def register_one_tap(request):
 	#user is logged in for sure, no need to check for exceptions
 	usn = request.session["usn"]
 	user = Signup.objects.get(usn=usn)
-	
 	if request.method == "POST":
 		parameters = request.POST
 		eventid = parameters.get('eventid')
 		clubid = parameters.get("clubid")
-		new_registration = Register(club_id=clubid,event_id=eventid,usn=usn,name=user.name,email=user.email,phone=user.phone,dept=user.dept,sem=user.sem)
+		required_fields = Event.objects.get(event_id=eventid,club_id=clubid).requirements
+		required_fields = eval(required_fields)
+		default_params = {"usn":usn,"name":"","email":"","phone":"","dept":"","sem":""}
+		for required in required_fields:
+			if required == "name":
+				default_params["name"] = str(user.name)
+			elif required == "email":
+				default_params["email"] = str(user.email)
+			elif required == "phone":
+				default_params["phone"] = str(user.phone)
+			elif required == "dept":
+				default_params["dept"] = str(user.dept)
+			elif required == "sem":
+				default_params["sem"] = str(user.sem)
+			else:
+				pass
+		
+		new_registration = Register(club_id=clubid,event_id=eventid,usn=usn,name=default_params["name"],email=default_params["email"],phone=default_params["phone"],dept=default_params["dept"],sem=default_params["sem"])
 		try:
 			new_registration.save()
 			return HttpResponse("Congrats, you have been registered!")
