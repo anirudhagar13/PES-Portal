@@ -90,7 +90,7 @@ class Event(models.Model):
 	event_desc = models.TextField(null = True)
 	requirements = models.TextField(null = True,blank = True)
 	own_form = models.URLField(null = True,blank = True)
-	poster = models.ImageField(upload_to="./tester/static",null=True,blank=True)
+	poster = models.FileField(upload_to="./tester/static",null=True,blank=True)
 	timestamp = models.DateTimeField(default = timezone.now)
 	
 	def __str__(self):

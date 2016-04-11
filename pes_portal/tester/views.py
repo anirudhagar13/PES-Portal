@@ -16,7 +16,7 @@ def event(request):
 	else:
 		eid = itr[0].event_id								
 	form = Eventform(request.POST)										
-	if form.is_valid():															
+	if form.is_valid():														
 		form.save()
 		form = Eventform()
 		itr = Event.objects.filter(club_id=cid).order_by('-id')				
@@ -158,16 +158,18 @@ This function is used to redirect to the promotion choice page
 def click_prom(request):												
 	ls = str(request).split("click_prom/")[1][:-2].split('$')		
 	cid = ls[0]
+	s_mail = []
 	eid = int(ls[1])
 	hidden = Tuple_no(request.POST)													#Hidden Form to see if button clicked or not
 	name = Event.objects.filter(club_id=cid).filter(event_id=eid)[0].event_name 	
 	forms = Register.objects.filter(club_id=cid).filter(event_id=eid).order_by('id')
 	if hidden.is_valid():
 		url = 'https://localhost/event/%s'%(eid)
+		for i in range(0,len(forms)):
+			s_mail.append(forms[i].email)
 		msg = "Upcoming Event : %s is on the verge.\nPlease Click the link : %s"%(name,url)
 		subject = "PES Times Upcoming Events"
 		f_mail = settings.EMAIL_HOST_USER
-		s_mail = ["senddjango@gmail.com"]
 		send_mail(subject,msg, f_mail , s_mail, fail_silently=False)	
 		hidden = Tuple_no()
 		name = Event.objects.filter(club_id=cid).filter(event_id=eid)[0].event_name
