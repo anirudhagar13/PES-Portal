@@ -11,11 +11,6 @@ class ClubForm(forms.ModelForm):
 		model = Signup
 		fields = ('usn', 'name', 'email','phone', 'dob', 'dept', 'sem' ,'club_id')'''
 
-class MemberForm(forms.ModelForm):
-	class Meta:
-		model = Member
-		fields = ('club_id', 'usn')
-
 class EventForm(forms.ModelForm):
 	class Meta:
 		model = Event

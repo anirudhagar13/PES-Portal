@@ -33,7 +33,7 @@ def my_logout(request):
 	request.session["club_id"] = None
 	user = None
 	logout(request)
-	print ' hi'
+	#print ' hi'
 	return redirect("/welcomepage/newsfeed/")
 
 def list_books_for_sale(request):
@@ -45,7 +45,7 @@ def list_books_for_sale(request):
 	if request.method == 'GET':
 		user_usn = request.session['usn']
 		books_data = get_book_data(user_usn) # get serialized book data from get_book_data method
-		paginator = Paginator(books_data,3)
+		paginator = Paginator(books_data,10)
 
 		page=request.GET.get('page')
 		try:
@@ -57,6 +57,51 @@ def list_books_for_sale(request):
 
 		# print (data)
 		return render(request,'up_for_sale.html',{'data':data})
+
+
+def get_buyers_details(usn):
+
+	buyers = []
+	buyers_list = list()
+	# get seller objects of the current active user which is required to query the Pending Transactions table
+
+	sellers = Seller.objects.filter(seller_id_id = usn) 
+	
+	#keep appending the list of buyers for every seller object
+	
+	for seller in sellers :
+		buyers.extend(Pending_transactions.objects.filter(seller = seller))
+
+	#for every buyer retrieve all his info from the Signup table
+	
+	for buyer in buyers:
+		
+		buyer_signup_obj = Signup.objects.get(usn = buyer.buyer_id_id) 
+		
+		temp_dict = {
+		'name' : buyer_signup_obj.name,
+		'email': buyer_signup_obj.email,
+		'phone': buyer_signup_obj.phone,
+		'book' : buyer.book_name,
+		'dept' : buyer_signup_obj.dept,
+		'sem'  : buyer_signup_obj.sem,
+		}
+		buyers_list.append(temp_dict)
+	return buyers_list
+
+		
+
+
+def view_buyers(request):
+
+	""" renders the page displaying all the interested buyers """
+	if request.method == 'GET':
+		usn = request.session.get('usn')
+		buyers = get_buyers_details(usn)
+		
+		return render(request,"view_buyers.html",{'buyers':buyers})	
+
+
 
 def upload_book(request):
 	
@@ -106,5 +151,5 @@ def search_book(request):
 
 	book_name = request.GET.get('book_name')
 	data = get_book_data(book_name = book_name)
-	print data
+	#print data
 	return JsonResponse({'data':data})

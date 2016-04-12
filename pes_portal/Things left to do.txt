@@ -1,0 +1,10 @@
+4:30 21st April
+
+- Navbar everywhere with functions
+- main slider in base.html use function to change bg
+- UI for event and comments page
+- Bookexchange backend 
+- poster upload
+- Web content
+- testing
+- One click register : Take event_id + club_id

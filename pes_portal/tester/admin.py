@@ -11,7 +11,7 @@ admin.site.register(Event,Eventadmin)
 admin.site.register(Signup)
 admin.site.register(Register,Registration)
 admin.site.register(Club)
-admin.site.register(Member)
+admin.site.register(Comments)
 admin.site.register(Seller)
 admin.site.register(Pending_transactions)
 

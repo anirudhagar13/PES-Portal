@@ -69,13 +69,14 @@ class Signup(models.Model):
 		return str(self.usn)
 '''
 
+'''
 class Member(models.Model):
 	club_id = models.ForeignKey(Club, db_column = "club_id")
 	usn = models.ForeignKey(Signup, db_column = "usn")
 	designation = models.CharField(max_length=50,choices=designation_choice,null = True)
 	class Meta:
 		unique_together = ('club_id','usn')
-		
+'''	
 	
 #Cannot Make club_id foreign due to `forbidden csrf error` while form posting
 class Event(models.Model):
@@ -90,7 +91,7 @@ class Event(models.Model):
 	event_desc = models.TextField(null = True)
 	requirements = models.TextField(null = True,blank = True)
 	own_form = models.URLField(null = True,blank = True)
-	poster = models.FileField(upload_to="./tester/static",null=True,blank=True)
+	poster = models.ImageField(upload_to="./tester/static",null=True,blank=True)
 	timestamp = models.DateTimeField(default = timezone.now)
 	
 	def __str__(self):
@@ -133,6 +134,12 @@ class Pending_transactions(models.Model):
 	class Meta:
 		unique_together = (("buyer_id","seller","book_name"))
 		
+class Comments(models.Model):
 
+	usn = models.CharField(max_length=10)
+	event_id = models.IntegerField()
+	comment = models.CharField(max_length=100000000000000)
+	creat_date = models.DateTimeField('date published')
 
-
+	class Meta:
+		unique_together =(("usn","creat_date"))

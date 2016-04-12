@@ -164,7 +164,7 @@ def click_prom(request):
 	name = Event.objects.filter(club_id=cid).filter(event_id=eid)[0].event_name 	
 	forms = Register.objects.filter(club_id=cid).filter(event_id=eid).order_by('id')
 	if hidden.is_valid():
-		url = 'https://localhost/event/%s'%(eid)
+		url = 'https://localhost/welcomepage/event/?event_id=%s'%(eid)
 		for i in range(0,len(forms)):
 			s_mail.append(forms[i].email)
 		msg = "Upcoming Event : %s is on the verge.\nPlease Click the link : %s"%(name,url)

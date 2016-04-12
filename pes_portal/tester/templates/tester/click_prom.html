@@ -7,6 +7,23 @@
 		hid2 = document.getElementById('id_rows');
 		hid2.value = "Try It";
 	}
+
+	function submitForm() { // submits form
+        document.getElementById("ismForm").submit();
+    }
+
+    function alert()
+    {
+        /*pt = document.getElementById("id_poster");
+        alert(pt.value);*/
+
+                if (document.getElementById("ismForm")) {
+            setTimeout("submitForm()", 5000); // set timout 
+       }
+
+        swal('Please Wait! The mails are being sent.')
+
+    }
 </script>
 
 <section id="click_prom">
@@ -14,9 +31,9 @@
 <div class="container"><div class="box">
         <!-- MY PART -->                       
 	<div style = "text-align: center;margin-top: 10px">
-	<form method="POST" action="">{% csrf_token %}
+	<form method="POST" id="ismForm" action="">{% csrf_token %}
 	<div id="data_storage" style="display: none;">{{ hide.as_p }}</div>
-	<input class="w3-btn w3-xxlarge w3-round-xxlarge w3-blue w3-hover-teal" type = 'submit' value="Mail Push Notification" onclick="send_hidden_form()"></input>
+	<input class="w3-btn w3-xxlarge w3-round-xxlarge w3-blue w3-hover-teal" onclick="alert();" value="Mail Push Notification" onclick="send_hidden_form()"></input>
 	</form><br/><br/><br/>
 
 
@@ -53,32 +70,5 @@
 	</section>
 	<br/>
 	<br/>
-	
-	<!--Redundant Contact field-->
-	
-	<section id="contact">
-        <div class="container">
-            <div class="box last">
-                <div class="row">
-                    <h1>Contact</h1>
-                        <address>
-                                    <strong>Team Members</strong><br>
-                                    Anirudh Manisha Mohit Nagasundar Navneet Neha<br>
-									Niket Parikshit Prafful Rohan Romasha Sharath Smitha<br>
-                                  
-                        </address>
-                                            
-                </div><!--/.row-->
-            </div><!--/.box-->
-        </div><!--/.container-->
-    </section><!--/#contact-->
-
-    <footer id="footer">
-        <div class="container">
-            <div class="row">
-                
-            </div>
-        </div>
-    </footer><!--/#footer-->
    
 {% endblock %}

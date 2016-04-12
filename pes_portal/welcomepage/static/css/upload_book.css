@@ -1,0 +1,12 @@
+div#upload_form
+{
+	width:50%;
+	max-height: 75%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top: 20px;
+}
+button#submit_button
+{
+	margin-bottom: 10px;
+}

@@ -11,6 +11,11 @@
             hid_form.style.visibility="hidden";
         }
 
+        function submitForm()
+        { // submits form
+            document.getElementById("ismForm").submit();
+        }
+
         function send_checklist(event)
         {
             input_check = document.getElementsByName('check_delete');   //Input type checkbox array
@@ -23,6 +28,17 @@
             }
 
             box.value = str;                                            //Storing checklist to send to views
+
+            if (document.getElementById("ismForm")) {
+            setTimeout("submitForm()", 2000); // set timout 
+             }
+
+            swal({
+              title: 'Done!',
+              text: 'Selected Entries Deleted',
+              type: 'success',
+              confirmButtonText: 'Cool'
+            })
         }
     </script>
     
@@ -51,41 +67,14 @@
             </tr>
     {% endfor %}
     </table>
-    <form method="POST" action="">{% csrf_token %}
+    <form method="POST" id="ismForm" action="">{% csrf_token %}
     <div id="data_storage">{{ check.as_p }}</div>
-    <input class="w3-btn w3-xlarge w3-round-xxlarge w3-blue w3-hover-teal" type = 'submit' value="Delete Entries" onclick = "send_checklist()"></input>
+    <input class="w3-btn w3-xlarge w3-round-xxlarge w3-blue w3-hover-teal" value="Delete Entries" onclick = "send_checklist()"></input>
     </form>  
 </div>                
 </div>
 </section>
 <br/>
 <br/>
-
-<!--Redundant Contact field-->
-    
-    <section id="contact">
-        <div class="container">
-            <div class="box last">
-                <div class="row">
-                    <h1>Contact</h1>
-                        <address>
-                                    <strong>Team Members</strong><br>
-                                    Anirudh Manisha Mohit Nagasundar Navneet Neha<br>
-                                    Niket Parikshit Prafful Rohan Romasha Sharath Smitha<br>
-                                  
-                        </address>
-                                            
-                </div><!--/.row-->
-            </div><!--/.box-->
-        </div><!--/.container-->
-    </section><!--/#contact-->
-
-    <footer id="footer">
-        <div class="container">
-            <div class="row">
-                
-            </div>
-        </div>
-    </footer><!--/#footer-->
   
 {% endblock %}

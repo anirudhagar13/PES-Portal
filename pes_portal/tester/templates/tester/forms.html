@@ -75,16 +75,26 @@
 		return parseInt(ls[1].innerHTML);
 	}
 
+	function submitForm() { // submits form
+        document.getElementById("ismForm").submit();
+    }
+
 	function alert()
 	{
 		/*pt = document.getElementById("id_poster");
 		alert(pt.value);*/
 
-				swal({
+				if (document.getElementById("ismForm")) {
+            setTimeout("submitForm()", 5000); // set timout 
+       }
+
+		swal({
 		  title: 'Good Job!',
-		  text: 'Event Has Been Created',
-		  timer: 3000
+		  text: 'You Have Successfully Created a new Event',
+		  type: 'success',
+		  confirmButtonText: 'Cool'
 		})
+
 	}
 
 </script>
@@ -97,43 +107,12 @@
 	<h1 class="w3-tag w3-xxlarge w3-padding w3-round-large w3-blue-grey w3-center w3-animate-zoom">Event Creation</h1>
 	<h6 style="display: none;">{{fill_cid}}</h6>
 	<h6 style="display: none;">{{fill_eid}}</h6>
-	<form class="w3-card-4 w3-animate-zoom" method="POST" action="" enctype="multipart/form-data" onsubmit="return alert();">{% csrf_token %}
+	<form class="w3-card-4 w3-animate-zoom" id="ismForm" method="POST" action="" enctype="multipart/form-data" >{% csrf_token %}
 	<div id="lol">{{ form.as_p }}</div><br/><br/>
-	<input class="w3-btn w3-xxxlarge w3-round-xxlarge w3-pale-blue w3-hover-teal" type = 'submit' value="Submit"></input><br/><br/>
+	<input class="w3-btn w3-xxxlarge w3-round-xxlarge w3-pale-blue w3-hover-teal" onclick="alert();" value="Create Event"></input><br/><br/>
 	</form>
 		        
 </div>
 </div>
-
-	<!--Redundant Contact field-->
-
-    <!-- /.container -->
-	</section>
-	<br/><br/>
-	
-	<section id="contact">
-        <div class="container">
-            <div class="box last">
-                <div class="row">
-                    <h1>Contact</h1>
-                        <address>
-                                    <strong>Team Members</strong><br>
-                                    Anirudh Manisha Mohit Nagasundar Navneet Neha<br>
-									Niket Parikshit Prafful Rohan Romasha Sharath Smitha<br>
-                                  
-                        </address>
-                                            
-                </div><!--/.row-->
-            </div><!--/.box-->
-        </div><!--/.container-->
-    </section><!--/#contact-->
-
-    <footer id="footer">
-        <div class="container">
-            <div class="row">
-                
-            </div>
-        </div>
-    </footer><!--/#footer-->
    
 {% endblock %}

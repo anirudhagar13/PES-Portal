@@ -11,6 +11,6 @@ urlpatterns = [
 	url(r'^upload_book/',views.upload_book,name="upload_book"),
 	url(r'^buy/',views.buy,name="buy"),
 	url(r'^search_book',views.search_book,name="search_book"),
-
+	url(r'^view_buyers',views.view_buyers,name="view_buyers"),
 
 ]
