@@ -1,12 +1,25 @@
-{% extends 'welcomepage/club_base.html' %}
+{% extends 'welcomepage/base.html' %}
 {% load staticfiles %}
 {% block content %}
+
+<script>
+function apply_bg()
+{
+	slider = document.getElementById("main-slider");
+	slider.style.backgroundImage = "url('../../static/pes3.jpg')";
+	h1 = document.getElementById("main-slider2h1")
+	h1.innerHTML = "Create your own event"
+	p = document.getElementById("main-slider2p")
+	p.innerHTML = "Please fill all the fields"
+}
+apply_bg();
+</script>    
 
 <script type="text/javascript">
 	function init()
 	{
-		window.addEventListener("click",remove_modals);
-		lol = document.getElementById("main-slider");
+		
+		//lol = document.getElementById("main-slider");
 		//lol.style.backgroundImage = "{% static 'slider1_bg.jpg' %}";
 		//alert(lol.style.backgroundImage);
 		styling();

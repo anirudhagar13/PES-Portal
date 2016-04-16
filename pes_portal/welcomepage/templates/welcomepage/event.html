@@ -1,20 +1,17 @@
 {% extends 'welcomepage/base.html' %}
 {% block content %}
-    
-<section id="main-slider" style="background-image:url(../../static/images/slider-bg.jpg);" class="carousel">
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="container">
-                    <div class="carousel-content">
-                        <h1>PES Times</h1>
-                        <p class="lead">A single web portal for all the events happening in PES</p>
-                    </div>
-                </div>
-            </div><!--/.item-->
-            
-        </div><!--/.carousel-inner-->
-     
-    </section><!--/#main-slider-->
+<script>
+function apply_bg()
+{
+	slider = document.getElementById("main-slider");
+	slider.style.backgroundImage = "url('../../static/pes2.jpg')";
+	h1 = document.getElementById("main-slider2h1");
+	h1.innerHTML = "{{event.event_name}}";
+	p = document.getElementById("main-slider2p");
+	p.innerHTML = "Club : {{event.club_id}}";
+}
+apply_bg();
+</script>    
 
     <section id="desc">
      <!-- Page Content -->

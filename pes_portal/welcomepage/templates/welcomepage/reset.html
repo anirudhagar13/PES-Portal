@@ -2,6 +2,18 @@
 
 {% block content %}
 <script>
+function apply_bg()
+{
+	slider = document.getElementById("main-slider");
+	slider.style.backgroundImage = "url('../../static/images/slider-bg.jpg')";
+	h1 = document.getElementById("main-slider2h1")
+	h1.innerHTML = "Reset Password"
+	p = document.getElementById("main-slider2p")
+	p.innerHTML = "";
+}
+apply_bg();
+</script>
+<script>
 function check_fields1()
 {
 

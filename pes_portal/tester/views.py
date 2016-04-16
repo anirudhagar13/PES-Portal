@@ -4,6 +4,7 @@ from .models import *
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
+from welcomepage.views import navbar_functions
 # Create your views here.
 '''
 This function renders the form to create the event
@@ -24,9 +25,9 @@ def event(request):
 			eid = 1;
 		else:
 			eid = itr[0].event_id
-		return render(request,"tester/forms.html",{'fill_cid':cid,'fill_eid':eid,'form':form})
+		return render(request,"tester/forms.html",navbar_functions(request, {'fill_cid':cid,'fill_eid':eid,'form':form}))
 
-	return render(request,"tester/forms.html",{'fill_cid':cid,'fill_eid':eid,'form':form})			
+	return render(request,"tester/forms.html",navbar_functions(request, {'fill_cid':cid,'fill_eid':eid,'form':form}))			
 	
 '''
 This function deletes checked events by club-admin
@@ -60,9 +61,9 @@ def show(request):
 		del_event(cid,checked)											
 		checked = Tuple_no()
 		forms = Event.objects.filter(club_id=cid).order_by('id')	
-		return render(request, 'tester/show.html', {'check':checkbox,'form': forms})
+		return render(request, 'tester/show.html', navbar_functions(request, {'check':checkbox,'form': forms}))
 
-	return render(request, 'tester/show.html', {'check':checkbox,'form': forms})
+	return render(request, 'tester/show.html', navbar_functions(request, {'check':checkbox,'form': forms}))
 
 '''
 This function enables the admin to see all the registrations 
@@ -81,9 +82,9 @@ def reg(request):
 		checked = Tuple_no()
 		name = Event.objects.filter(club_id=cid).filter(event_id=eid)[0].event_name 
 		forms = Register.objects.filter(club_id=cid).filter(event_id=eid).order_by('id')
-		return render(request, 'tester/show2.html', {'name':name,'check':checkbox,'form': forms})
+		return render(request, 'tester/show2.html', navbar_functions(request, {'name':name,'check':checkbox,'form': forms}))
 
-	return render(request, 'tester/show2.html', {'name':name,'check':checkbox,'form': forms})	#rendering registration list template
+	return render(request, 'tester/show2.html', navbar_functions(request, {'name':name,'check':checkbox,'form': forms})	)#rendering registration list template
 
 '''
 This function filters event requirements as set by club-admin
@@ -134,15 +135,15 @@ def one_click_reg(request):
 		cid = one_click.cleaned_data.get("cid")
 		filt(usn,eid,cid)											
 		one_click = Registry()
-		return render(request,"tester/one_click.html",{'form':one_click})
-	return render(request,"tester/one_click.html",{'form':one_click})
+		return render(request,"tester/one_click.html",navbar_functions(request, {'form':one_click}))
+	return render(request,"tester/one_click.html",navbar_functions(request, {'form':one_click}))
 
 '''
 This function is used to redirect to main-template
 '''
 def main_admin(request):												
 	cid = str(request).split("tester/")[1][:-2]							
-	return render(request,"tester/main_admin.html",{'fill_cid':cid})
+	return render(request,"tester/main_admin.html",navbar_functions(request, {'fill_cid':cid}))
 
 '''
 This function is used to redirect to promotion page
@@ -150,7 +151,7 @@ This function is used to redirect to promotion page
 def prom(request):														
 	cid = str(request).split("promote/")[1][:-2]						
 	forms = Event.objects.filter(club_id=cid).order_by('id')	
-	return render(request,"tester/event_prom.html",{'fill_cid':cid,'form':forms})
+	return render(request,"tester/event_prom.html",navbar_functions(request, {'fill_cid':cid,'form':forms}))
 
 '''
 This function is used to redirect to the promotion choice page
@@ -174,6 +175,6 @@ def click_prom(request):
 		hidden = Tuple_no()
 		name = Event.objects.filter(club_id=cid).filter(event_id=eid)[0].event_name
 		forms = Register.objects.filter(club_id=cid).filter(event_id=eid).order_by('id')
-		return render(request, 'tester/click_prom.html', {'hide':hidden})
+		return render(request, 'tester/click_prom.html', navbar_functions(request, {'hide':hidden}))
 
-	return render(request, 'tester/click_prom.html', {'hide':hidden})
+	return render(request, 'tester/click_prom.html', navbar_functions(request, {'hide':hidden}))

@@ -36,6 +36,7 @@
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/toastr.js' %}"></script>
 <script src="{% static 'js/up_for_sale.js' %}"></script>
+<script src="{% static 'js/view_buyers.js' %}"></script>
 
 <script>
 function init()
@@ -301,6 +302,32 @@ function check_fields()
   	</div>
 </div>
 
+	<section id="main-slider" class="carousel">
+        <div class="carousel-inner">
+            <div id="main-slider1" class="item active">
+                <div class="container">
+                    <div class="carousel-content">
+                        <h1 id="main-slider1h1" >PES Times</h1>
+                        <p id="main-slider1p" class="lead">A single web portal for all the events happening in PES</p>
+                    </div>
+                </div>
+            </div><!--/.item-->
+            <div id="main-slider2" class="item">
+                <div class="container">
+                    <div class="carousel-content">
+                        <h1 id="main-slider2h1" >Book Exchange</h1>
+                        <p id="main-slider2p" class="lead">Check out our Book Exchange Forum and get all the books you need in a single click</p>
+                    </div>
+                </div>
+            </div><!--/.item-->
+        </div><!--/.carousel-inner-->
+		<div id="arrow1">
+        <a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a></div>
+		<div id="arrow2">
+        <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a></div>
+    </section><!--/#main-slider-->
+	
+	
 {% block content %}
 {% endblock %}
 <section id="contact">
@@ -328,6 +355,6 @@ function check_fields()
             </div>
         </div>
     </footer><!--/#footer-->
-
+</section>
 </body>
 </html>

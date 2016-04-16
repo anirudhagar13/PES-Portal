@@ -2,29 +2,43 @@
 
 {% block content %}
 	
-    <section id="main-slider" class="carousel" >
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="container">
-                    <div class="carousel-content">
-                    
-                       {% for cname in curr_club %}
-                        <h1 >{{ cname.club_name}}</h1>
-                        
-                        	
-                       			 <p class="lead">{{ cname.objective}}</p>
-                        	
-                        	
-                         {%endfor%}
-                    </div>
-                </div>
-            </div><!--/.item-->
-           
-        </div><!--/.carousel-inner-->
-        <!---<a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
-        <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>-->
-    </section><!--/#main-slider-->
+<script>
+function apply_bg()
+{
+	slider = document.getElementById("main-slider");
+	slider.style.backgroundImage = "url('../../static/d.jpg')";
+	h1 = document.getElementById("main-slider2h1")
+	h1.innerHTML = {{club.club_name}}
+	p = document.getElementById("main-slider2p")
+	p.innerHTML = {{club.objective}};
+}
+apply_bg();
+</script>
 
+<section id="desc">
+     <!-- Page Content -->
+    <div class="container"><div class="box">
+    
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                 <div class="center">
+               
+                        <h2>Objective</h2>
+                        <p>{{club.objective}}</p>
+						<h2>Description</h2>
+                        <p>{{club.description}}</p>
+						<h2>Contact</h2>
+                        <p>{{club.contact_info}}</p>
+                   
+                </div><!--/.center-->
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>    
+      </div>
+    </section>
     <section id="events">
 	 <!-- Page Content -->
 	<div class="container"><div class="box">
@@ -34,13 +48,14 @@
             <div class="col-lg-12">
                  <div class="center gap">
                     <h2>Events</h2>
-                    <p class="lead">{% for cname in curr_club %}
-                    Here are a few events of {{ cname.club_name}} {%endfor%}</p>
+                    <p class="lead">
+                    Here are a few events of {{ club.club_name}} 
+					</p>
                 </div><!--/.center-->
             </div>
         </div>
         <!-- /.row -->
-		{% for cname in curr_club %}
+		
 		{%for event in events %}
         <!-- Project One -->
         <div class="row">
@@ -51,14 +66,14 @@
                 <h3>{{event.event_name}}</h3>
                 <h6>{{event.event_date}} {{event.venue}}</h6>
                 <p>{{event.event_desc}}</p>
-                <a class="btn btn-primary" href="/welcomepage/event/?event_id={{event.event_id}}">View Event<span class="glyphicon glyphicon-chevron-right"></span></a><br><br>
+                <a class="btn btn-primary" href="/welcomepage/event/?event_id={{event.event_id}}&club_id={{event.club_id}}">View Event<span class="glyphicon glyphicon-chevron-right"></span></a><br><br>
                 
             </div>
         </div>
         <!-- /.row -->
 
         <hr>
-		{%endfor%}{%endfor%}
+		{%endfor%}
         
         <hr>
     </div>
@@ -85,20 +100,20 @@
     </ol>
                  <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
-      <div class="item active">{% for cname in curr_club %}
-        <img src="/static/images/{{ cname.club_name}}/gallery/1.jpg" alt="">
+      <div class="item active">
+        <img src="/static/images/{{ club.club_name}}/gallery/1.jpg" alt="">
       </div>
 
       <div class="item">
-        <img src="/static/images/{{ cname.club_name}}/gallery/2.jpg" alt="">
+        <img src="/static/images/{{ club.club_name}}/gallery/2.jpg" alt="">
       </div>
     
       <div class="item">
-       <img src="/static/images/{{ cname.club_name}}/gallery/3.jpg" alt="">
+       <img src="/static/images/{{ club.club_name}}/gallery/3.jpg" alt="">
       </div>
 
       <div class="item">
-        <img src="/static/images/{{ cname.club_name}}/gallery/4.jpg" alt="">{%endfor%}
+        <img src="/static/images/{{ club.club_name}}/gallery/4.jpg" alt="">
       </div>
     </div>
   </div>
@@ -119,21 +134,5 @@
         <hr>
     </section>
 	
-
-
-	<section id="members">
-        <div class="container">
-            <div class="box">
-                <div class="center gap">
-                    <h2>Members</h2>
-                    <!--<p class="lead">Here are a few clubs in PES</p>-->
-                </div><!--/.center-->
-				
-                <ul class="portfolio-items col-4">
-					
-                </ul>   
-            </div><!--/.box--> <hr>
-        </div><!--/.container-->
-    </section><!--/#portfolio-->
 	
 	{%endblock%}

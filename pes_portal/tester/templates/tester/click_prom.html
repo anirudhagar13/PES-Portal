@@ -1,28 +1,33 @@
-{% extends 'welcomepage/club_base.html' %}
+{% extends 'welcomepage/base.html' %}
+{%load staticfiles%}
 {% block content %}
-
+<script>
+function apply_bg()
+{
+	slider = document.getElementById("main-slider");
+	slider.style.backgroundImage = "url({% static 'pes3.jpg' %})";
+	h1 = document.getElementById("main-slider2h1")
+	h1.innerHTML = "Promote your event";
+	p = document.getElementById("main-slider2p")
+	p.innerHTML = "Try out our easy one click promotion";
+}
+apply_bg();
+</script>    
 <script>
 	function send_hidden_form()
 	{
 		hid2 = document.getElementById('id_rows');
 		hid2.value = "Try It";
-	}
 
-	function submitForm() { // submits form
-        document.getElementById("ismForm").submit();
-    }
-
-    function alert()
-    {
-        /*pt = document.getElementById("id_poster");
-        alert(pt.value);*/
-
-                if (document.getElementById("ismForm")) {
+		if (document.getElementById("ismForm")) {
             setTimeout("submitForm()", 5000); // set timout 
        }
 
         swal('Please Wait! The mails are being sent.')
+	}
 
+	function submitForm() { // submits form
+        document.getElementById("ismForm").submit();
     }
 </script>
 
@@ -33,7 +38,7 @@
 	<div style = "text-align: center;margin-top: 10px">
 	<form method="POST" id="ismForm" action="">{% csrf_token %}
 	<div id="data_storage" style="display: none;">{{ hide.as_p }}</div>
-	<input class="w3-btn w3-xxlarge w3-round-xxlarge w3-blue w3-hover-teal" onclick="alert();" value="Mail Push Notification" onclick="send_hidden_form()"></input>
+	<input class="w3-btn w3-xxlarge w3-round-xxlarge w3-blue w3-hover-teal" value="Mail Push Notification" onclick="send_hidden_form()"></input>
 	</form><br/><br/><br/>
 
 

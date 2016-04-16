@@ -30,9 +30,9 @@ sem_choice = (("1","I"),
 # Create your models here.
 
 class Club(models.Model):
-	club_id = models.CharField(max_length = 120,primary_key=True)
+	club_id = models.CharField(max_length=10,primary_key=True)
 	club_name = models.CharField(max_length = 120,null = True)
-	contact_info = models.IntegerField(null = True)
+	contact_info = models.TextField(null = False,default="")
 	objective = models.TextField(null = True)
 	description = models.TextField(null = True)
 	created_on = models.DateTimeField(default = timezone.now)
@@ -48,35 +48,11 @@ class Signup(models.Model):
 	email = models.EmailField(default = "abc@xyz.com",null=True)
 	dob = models.DateField(null=True)
 	phone = models.BigIntegerField(null=True)
-	sem = models.IntegerField(null=True)
+	sem = models.CharField(max_length=2,null=True)
 	club_id = models.CharField(max_length=10,null=True,blank=True)
 
 	def __str__(self):
 		return str(self.usn)
-'''
-
-class Signup(models.Model):
-	usn = models.CharField(max_length=10,primary_key=True)
-	name = models.CharField(max_length=50)
-	email = models.EmailField()
-	phone_no = models.IntegerField()
-	D_O_B = models.DateField(null=True)
-	branch = models.CharField(max_length=3,choices=branch_choice,null=True)
-	sem = models.CharField(max_length=1,choices=sem_choice)
-	club_id = models.CharField(max_length=10,null=True,blank=True)
-
-	def __str__(self):
-		return str(self.usn)
-'''
-
-'''
-class Member(models.Model):
-	club_id = models.ForeignKey(Club, db_column = "club_id")
-	usn = models.ForeignKey(Signup, db_column = "usn")
-	designation = models.CharField(max_length=50,choices=designation_choice,null = True)
-	class Meta:
-		unique_together = ('club_id','usn')
-'''	
 	
 #Cannot Make club_id foreign due to `forbidden csrf error` while form posting
 class Event(models.Model):

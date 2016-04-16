@@ -16,7 +16,9 @@ from django.conf import settings
 from django.template.defaulttags import register
 
 # Create your views here.
-def navbar_functions(request):
+def navbar_functions(request , e = {}):
+	clubs = Club.objects.all()
+	extradict  = e.copy()
 	try:
 		usn = request.session["usn"]
 		clubid = request.session["club_id"]
@@ -29,25 +31,25 @@ def navbar_functions(request):
 		user = None
 	
 	if request.method=="POST":
-		dict = request.POST
-		if dict.get("logout"):
+		dict1 = request.POST
+		if dict1.get("logout"):
 			#logout
 			request.session["usn"] = None
 			request.session["club_id"] = None
 			user = None
 		
 		#signup form contains email field
-		elif dict.get("email"):		
+		elif dict1.get("email"):		
 			#signup
 			try:
-				username = dict["username"]	
-				usn = dict["usn"]	
-				email = dict["email"]
-				mobile = dict["mobile"]
-				dept = dict["dept"]
-				sem = int(dict["sem"])
-				password1 = dict["password1"]
-				dob = dict["dob"]
+				username = dict1["username"]	
+				usn = dict1["usn"]	
+				email = dict1["email"]
+				mobile = dict1["mobile"]
+				dept = dict1["dept"]
+				sem = dict1["sem"]
+				password1 = dict1["password1"]
+				dob = dict1["dob"]
 				#two entries are made:  One in Django User table for authentication purpose
 				#						Other in Signup table of our DB for recording user data
 				new_user = User.objects.create_user(username=usn,password=password1)
@@ -55,10 +57,11 @@ def navbar_functions(request):
 				Signup.objects.create(name=username, email=email, usn=usn, dept=dept, phone=mobile, sem=sem, dob=dob)		
 			except IntegrityError as e:
 				#user exists
-				return {"INTEGRITY_ERROR":True}
-		elif dict.get("userusn"):
+				extradict.update({"INTEGRITY_ERROR":True,"clubs":clubs})
+				return extradict
+		elif dict1.get("userusn"):
 			#lost password
-			usn = dict["userusn"]
+			usn = dict1["userusn"]
 			try:
 				if Signup.objects.get(usn=usn):
 					msg = "You can reset your password here \n" + "http://localhost:8000/welcomepage/reset"
@@ -66,14 +69,16 @@ def navbar_functions(request):
 					f_mail = settings.EMAIL_HOST_USER
 					s_mail = [Signup.objects.get(usn=usn).email]
 					send_mail(subject, msg , f_mail , s_mail, fail_silently=False)
-					return {"MAIL_SENT":True}
+					extradict.update({"MAIL_SENT":True,"clubs":clubs})
+					return extradict
 			except:
-				return {"NO_USER":True}
+				extradict.update({"NO_USER":True,"clubs":clubs})
+				return extradict
 				
-		elif dict.get("password"):
+		elif dict1.get("password"):
 			#login
-			usn = dict["usn"];
-			password = dict["password"];
+			usn = dict1["usn"];
+			password = dict1["password"];
 			log_user = authenticate(username=usn, password=password)
 				
 			if log_user:
@@ -87,13 +92,15 @@ def navbar_functions(request):
 				request.session["club_id"] = clubid
 			else:
 				#user not signed up
-				return {"PROBLEM_LOGGING":True}
+				extradict.update({"PROBLEM_LOGGING":True,"clubs":clubs})
+				return extradict
 		
 	try:
-		return {"CLUBID":request.session["club_id"],"LOGGED":user, "PROBLEM_LOGGING": False}
+		extradict.update({"CLUBID":request.session["club_id"],"LOGGED":user, "PROBLEM_LOGGING": False,"clubs":clubs})
+		return extradict
 	except:
-		return {"CLUBID":None,"LOGGED":user, "PROBLEM_LOGGING": False}
-
+		extradict.update({"CLUBID":None,"LOGGED":user, "PROBLEM_LOGGING": False,"clubs":clubs})
+		return extradict
 '''
 This function renders the newsfeed page
 It manages the signup, login, logout functionality and sets appropriate session variables
@@ -103,12 +110,8 @@ def render_newsfeed(request):
 	# set data to be sent to templates
 
 	events = Event.objects.all()
-	clubs = Club.objects.all()
 	
-	navfunc = navbar_functions(request)
-	newdict = navfunc.copy()
-	newdict.update({"events":events,"clubs":clubs})
-	return render(request, "welcomepage/newsfeed.html", newdict)
+	return render(request, "welcomepage/newsfeed.html", navbar_functions(request, {"events":events}))
 	
 	
 '''
@@ -123,7 +126,8 @@ def render_event(request, template="event.html"):
 		admin_club = None
 		
 	event_id = request.GET.get("event_id")
-	event = Event.objects.get(event_id=event_id)
+	club_id = request.GET.get("club_id")
+	event = Event.objects.get(event_id=event_id , club_id = club_id)
 	comments = Comments.objects.filter(event_id=event_id)
 	names = list()
 	for each_comment in range( len(comments) ):
@@ -136,7 +140,7 @@ def render_event(request, template="event.html"):
 	else:
 		isLoggedIn = 'false'
 	#print comment_list
-	return render(request, "welcomepage/event.html",{"event":event,"isLoggedIn":isLoggedIn,"comment_list":comment_list})
+	return render(request, "welcomepage/event.html",navbar_functions(request, {"event":event,"isLoggedIn":isLoggedIn,"comment_list":comment_list}))
 
 def render_reset(request):
 	events = Event.objects.all()
@@ -153,8 +157,8 @@ def render_reset(request):
 			user.save()
 			return redirect("/welcomepage/newsfeed")
 		except:
-			return render(request, "welcomepage/reset.html", {"events":events,"clubs":clubs,"NO_USER":True})
-	return render(request, "welcomepage/reset.html",{"events":events,"clubs":clubs})
+			return render(request, "welcomepage/reset.html", navbar_functions(request, {"events":events,"NO_USER":True} ))
+	return render(request, "welcomepage/reset.html",navbar_functions(request, {"events":events}) )
 
 #Takes care of One tap login
 @csrf_exempt

@@ -1,6 +1,17 @@
-{% extends 'welcomepage/club_base.html' %}
+{% extends 'welcomepage/base.html' %}
 {% block content %}
-	
+<script>
+function apply_bg()
+{
+	slider = document.getElementById("main-slider");
+	slider.style.backgroundImage = "url('../../static/pes3.jpg')";
+	h1 = document.getElementById("main-slider2h1")
+	h1.innerHTML = "Select the event you want to promote"
+	p = document.getElementById("main-slider2p")
+	p.innerHTML = "";
+}
+apply_bg();
+</script>    	
 <section id="event_prom">
 <!-- Page Content -->
 <div class="container"><div class="box">

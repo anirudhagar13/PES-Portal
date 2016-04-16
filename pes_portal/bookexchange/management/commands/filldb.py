@@ -47,4 +47,4 @@ class Command(BaseCommand):
 				)
 			new_seller.save()
 
-		print "Done!"
+		#print "Done!"

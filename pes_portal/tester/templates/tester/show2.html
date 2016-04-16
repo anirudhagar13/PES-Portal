@@ -1,6 +1,18 @@
-{% extends 'welcomepage/club_base.html' %}
+{% extends 'welcomepage/base.html' %}
+{% load staticfiles%}
 {% block content %}
-
+<script>
+function apply_bg()
+{
+	slider = document.getElementById("main-slider");
+	slider.style.backgroundImage = "url({% static 'pes3.jpg' %})";
+	h1 = document.getElementById("main-slider2h1");
+	h1.innerHTML = "Registrations for {{name}}";
+	p = document.getElementById("main-slider2p");
+	p.innerHTML = "Following are the registrations";
+}
+apply_bg();
+</script>    
 <script type="text/javascript">
         function init()
         {
