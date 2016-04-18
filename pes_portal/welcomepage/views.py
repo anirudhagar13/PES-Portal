@@ -109,7 +109,7 @@ It manages the signup, login, logout functionality and sets appropriate session 
 def render_newsfeed(request):
 	# set data to be sent to templates
 
-	events = Event.objects.all()
+	events = Event.objects.all().order_by("event_date").reverse()
 	
 	return render(request, "welcomepage/newsfeed.html", navbar_functions(request, {"events":events}))
 	
@@ -140,7 +140,7 @@ def render_event(request, template="event.html"):
 	else:
 		isLoggedIn = 'false'
 	#print comment_list
-	return render(request, "welcomepage/event.html",navbar_functions(request, {"event":event,"isLoggedIn":isLoggedIn,"comment_list":comment_list}))
+	return render(request, "welcomepage/event.html",navbar_functions(request, {"event":event,"comment_list":comment_list}))
 
 def render_reset(request):
 	events = Event.objects.all()

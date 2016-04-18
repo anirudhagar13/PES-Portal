@@ -98,7 +98,7 @@ function check_fields()
 						{%endif%}
 						{%if LOGGED.name%}
 						<li class = "lead" style="position:absolute; left: 600px ; top:15px">Hello {{LOGGED.name}}!</li>
-						<form name="logoutform" method="POST">{% csrf_token %}
+						<form name="logoutform" action="/welcomepage/newsfeed" method="POST">{% csrf_token %}
 						<li><button name="logout" value="logout" style="position:absolute; left:900px" class="btn btn-primary btn-lg">Logout</button></li>
 						</form>
 						{%else%}

@@ -55,7 +55,7 @@ apply_bg();
                         <script type="text/javascript">
                             function register()
                             {
-                                if({{isLoggedIn}})
+                                if("{{LOGGED}}")
                                 {
                                     var xhttp = new XMLHttpRequest();
                                     xhttp.onreadystatechange = function() 
@@ -112,7 +112,7 @@ apply_bg();
                 <script type="text/javascript">
                     function add_comment()
                     {
-                        if({{isLoggedIn}})
+                        if("{{LOGGED}}")
                         {
                             //AJAX call
                             var xhttp = new XMLHttpRequest();

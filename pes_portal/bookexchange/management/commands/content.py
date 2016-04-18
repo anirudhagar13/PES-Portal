@@ -91,59 +91,59 @@ class Command(BaseCommand):
 		#admins
 		new_user = User.objects.create_user(username="1PI12EE015",password="password")
 		new_user.save()
-		Signup.objects.create(name='Apoorv Jain', email='apoorv.jain@gmail.com', usn='1PI12EE015', dept='eee', phone=str(randomizer('phone')), sem=8, dob='1994-04-14', club_id='SM01')
+		Signup.objects.create(name='Apoorv Jain', email='neha.kalibhat@gmail.com', usn='1PI12EE015', dept='eee', phone=str(randomizer('phone')), sem=8, dob='1994-04-14', club_id='SM01')
 		
 		new_user = User.objects.create_user(username="1PI13ME015",password="password")
 		new_user.save()
-		Signup.objects.create(name='Aman Tayyab', email='aman.tayyab@yahoo.com', usn='1PI13ME015', dept='me', phone='9538713111', sem=8, dob='1994-03-15', club_id='AT02')
+		Signup.objects.create(name='Aman Tayyab', email='neha.kalibhat@gmail.com', usn='1PI13ME015', dept='me', phone='9538713111', sem=8, dob='1994-03-15', club_id='AT02')
 		
 		new_user = User.objects.create_user(username="1PI12EC155",password="password")
 		new_user.save()
-		Signup.objects.create(name='Srikanta Somayaji', email='srikanta.somayaji@gmail.com', usn='1PI12EC155', dept='ece', phone=str(randomizer('phone')), sem=8, dob='1994-12-09', club_id='NI04')
+		Signup.objects.create(name='Srikanta Somayaji', email='neha.kalibhat@gmail.com', usn='1PI12EC155', dept='ece', phone=str(randomizer('phone')), sem=8, dob='1994-12-09', club_id='NI04')
 		
 		new_user = User.objects.create_user(username="1PI12TE055",password="password")
 		new_user.save()
-		Signup.objects.create(name='Akhila Parthasarathy', email='akhila.parthasarathy@gmail.com', usn='1PI12TE055', dept='te', phone=str(randomizer('phone')), sem=8, dob='1994-05-10', club_id='EC06')
+		Signup.objects.create(name='Akhila Parthasarathy', email='neha.kalibhat@gmail.com', usn='1PI12TE055', dept='te', phone=str(randomizer('phone')), sem=8, dob='1994-05-10', club_id='EC06')
 		
 		new_user = User.objects.create_user(username="1PI12CS121",password="password")
 		new_user.save()
-		Signup.objects.create(name='Ram Kashyap', email='ram.kashyap@gmail.com', usn='1PI12CS121', dept='cse', phone=8147558586, sem=8, dob='1994-06-11', club_id='SD07')
+		Signup.objects.create(name='Ram Kashyap', email='neha.kalibhat@gmail.com', usn='1PI12CS121', dept='cse', phone=8147558586, sem=8, dob='1994-06-11', club_id='SD07')
 		
 		new_user = User.objects.create_user(username="1PI13CS130",password="password")
 		new_user.save()
-		Signup.objects.create(name='Saimadhav Heblikar', email='saimadhavheblikar@gmail.com', usn='1PI13CS130', dept='cse', phone=9008442961, sem=6, dob='1995-05-31', club_id='OS08')
+		Signup.objects.create(name='Saimadhav Heblikar', email='neha.kalibhat@gmail.com', usn='1PI13CS130', dept='cse', phone=9008442961, sem=6, dob='1995-05-31', club_id='OS08')
 		
 		new_user = User.objects.create_user(username="1PI12CS032",password="password")
 		new_user.save()
-		Signup.objects.create(name='Arvind Srikantan', email='arvindsri@yahoo.com', usn='1PI12CS032', dept='cse', phone=9591402872, sem=8, dob='1994-08-03', club_id='AY09')
+		Signup.objects.create(name='Arvind Srikantan', email='neha.kalibhat@gmail.com', usn='1PI12CS032', dept='cse', phone=9591402872, sem=8, dob='1994-08-03', club_id='AY09')
 		
 		new_user = User.objects.create_user(username="1PI13BT088",password="password")
 		new_user.save()
-		Signup.objects.create(name='Preethi Sathyanandan', email='preethi.sathyanandan@yahoo.com', usn='1PI13BT088', dept='bt', phone=randomizer('phone'), sem=8, dob='1995-03-21', club_id='SN10')
+		Signup.objects.create(name='Preethi Sathyanandan', email='neha.kalibhat@gmail.com', usn='1PI13BT088', dept='bt', phone=randomizer('phone'), sem=8, dob='1995-03-21', club_id='SN10')
 		
 		new_user = User.objects.create_user(username="1PI13IS002",password="password")
 		new_user.save()
-		Signup.objects.create(name='Abhigyan Nath', email='nath.abhigyan@gmail.com', usn='1PI13IS002', dept='ise', phone=randomizer('phone'), sem=6, dob='1995-01-02', club_id='NA11')
+		Signup.objects.create(name='Abhigyan Nath', email='neha.kalibhat@gmail.com', usn='1PI13IS002', dept='ise', phone=randomizer('phone'), sem=6, dob='1995-01-02', club_id='NA11')
 		
 		new_user = User.objects.create_user(username="1PI13ME033",password="password")
 		new_user.save()
-		Signup.objects.create(name='Yash Sahai', email='yash.sahai@yahoo.com', usn='1PI13ME033', dept='me', phone=9663645597, sem=6, dob='1994-03-11', club_id='CR13')
+		Signup.objects.create(name='Yash Sahai', email='neha.kalibhat@gmail.com', usn='1PI13ME033', dept='me', phone=9663645597, sem=6, dob='1994-03-11', club_id='CR13')
 		
 		new_user = User.objects.create_user(username="1PI12ME161",password="password")
 		new_user.save()
-		Signup.objects.create(name='Siddharth Kadandale', email='siddharth.ks@gmail.com', usn='1PI12ME161', dept='me', phone=randomizer('phone'), sem=8, dob='1994-06-09', club_id='PV14')
+		Signup.objects.create(name='Siddharth Kadandale', email='neha.kalibhat@gmail.com', usn='1PI12ME161', dept='me', phone=randomizer('phone'), sem=8, dob='1994-06-09', club_id='PV14')
 		
 		new_user = User.objects.create_user(username="1PI12CS055",password="password")
 		new_user.save()
-		Signup.objects.create(name='Karthik Kannapur', email='kkannapur@gmail.com', usn='1PI12CS055', dept='cse', phone=randomizer('phone'), sem=8, dob='1994-07-23', club_id='IE15')
+		Signup.objects.create(name='Karthik Kannapur', email='neha.kalibhat@gmail.com', usn='1PI12CS055', dept='cse', phone=randomizer('phone'), sem=8, dob='1994-07-23', club_id='IE15')
 		
 		new_user = User.objects.create_user(username="1PI12EE123",password="password")
 		new_user.save()
-		Signup.objects.create(name='Sushanth Hegde', email='susanth.hegde@yahoo.com', usn='1PI12EE123', dept='eee', phone=8050163643, sem=8, dob='1994-01-13', club_id='PY16')
+		Signup.objects.create(name='Sushanth Hegde', email='neha.kalibhat@gmail.com', usn='1PI12EE123', dept='eee', phone=8050163643, sem=8, dob='1994-01-13', club_id='PY16')
 		
 		new_user = User.objects.create_user(username="1PI12IS099",password="password")
 		new_user.save()
-		Signup.objects.create(name='Ravi Keerthi', email='ravi.keerthi@yahoo.com', usn='1PI12IS099', dept='ise', phone=8095019993, sem=8, dob='1994-11-25', club_id='PX17')
+		Signup.objects.create(name='Ravi Keerthi', email='neha.kalibhat@gmail.com', usn='1PI12IS099', dept='ise', phone=8095019993, sem=8, dob='1994-11-25', club_id='PX17')
 	
 		# events
 		samarpana_desc = 'Run for the soldiers, Run for those who safeguard you against enemies and conflict, Run for those who risk their flesh so that you can live in peace. Run for our Armed Forces.'
