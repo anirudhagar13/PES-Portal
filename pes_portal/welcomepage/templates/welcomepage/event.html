@@ -13,14 +13,15 @@ function apply_bg()
 apply_bg();
 </script>    
 
-    <section id="desc">
-     <!-- Page Content -->
-    <div class="container">
-        <div class="box">
-            <div class="w3-card-4">
-                <header class="w3-container w3-blue" >
-                  <h2 style="color: #FFFFFF"><strong>Description</strong></h2>
+    <section id="info">
+        <div class="container">
+            <div class="box">
+                <div class="w3-card-4">
+                    
+					<header class="w3-container w3-blue" >
+					<h2 style="color: white"><strong>{{event.event_name}}</strong></h2>
                 </header>
+				<h2>Description</h2>
                 <div class="w3-container">
                     <div class="row">
                         <div class="col-lg-12">
@@ -33,19 +34,7 @@ apply_bg();
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>    
-      </div>
-    </section>    
-
-
-    <section id="info">
-        <div class="container">
-            <div class="box">
-                <div class="w3-card-4">
-                    <header class="w3-container w3-blue" >
-                        <h2 style="color: #FFFFFF"><strong>Information</strong></h2>
-                    </header>
+					<h2>Information</h2>
                     <div class="w3-container">
                         <div class="row">
                             <div class="col-lg-12">
@@ -61,7 +50,7 @@ apply_bg();
                                         <script type="text/javascript">
                             function register()
                             {
-                                if({{isLoggedIn}})
+                                if("{{LOGGED}}" != "None")
                                 {
                                     var xhttp = new XMLHttpRequest();
                                     xhttp.onreadystatechange = function() 
@@ -146,7 +135,7 @@ apply_bg();
 
                     function add_comment()
                     {
-                        if({{isLoggedIn}})
+                        if("{{LOGGED}}" != "None")
                         {
                             //AJAX call
                             var xhttp = new XMLHttpRequest();

@@ -135,11 +135,7 @@ def render_event(request, template="event.html"):
 	comment_list = list()
 	for i in range(len(names)):
 		comment_list.append({"name":names[i],"comments":comments[i]})
-	if usn:
-		isLoggedIn = 'true'
-	else:
-		isLoggedIn = 'false'
-	#print comment_list
+	
 	return render(request, "welcomepage/event.html",navbar_functions(request, {"event":event,"comment_list":comment_list}))
 
 def render_reset(request):

@@ -83,18 +83,18 @@ function check_fields()
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li onclick="location.href='/welcomepage/newsfeed';"><a onmouseover="this.style.color='#999'">Home</a></li>
-						<li  class="dropdown"><a onmouseover="this.style.color='#999'" class="dropdown-toggle" data-toggle="dropdown">Clubs<span class="caret"></span></a>
+                        <li onclick="location.href='/welcomepage/newsfeed';"><a style="cursor:pointer;" onmouseover="this.style.color='#999'">Home</a></li>
+						<li  class="dropdown"><a style="cursor:pointer;"  onmouseover="this.style.color='#999'" class="dropdown-toggle" data-toggle="dropdown">Clubs<span class="caret"></span></a>
 							<ul class="dropdown-menu">
 							{% for club in clubs%}
-								<li onclick="location.href='/club/?club_id={{club.club_id}}';"><a>{{club.club_name}}</a></li>
+								<li onclick="location.href='/club/?club_id={{club.club_id}}';"><a style="cursor:pointer;" >{{club.club_name}}</a></li>
 							{%endfor%}
 							</ul>
 						</li>
-						<li onclick="location.href='/bookexchange';"><a onmouseover="this.style.color='#999'">Book Exchange</a></li>
+						<li onclick="location.href='/bookexchange';"><a style="cursor:pointer;" onmouseover="this.style.color='#999'">Book Exchange</a></li>
 						<li><a onmouseover="this.style.color='#999'" href="#contact">Contact</a></li>
 						{%if CLUBID%}
-						<li onclick="location.href='/tester/{{CLUBID}}';"><a onmouseover="this.style.color='#999'">Manage Events</a></li>
+						<li onclick="location.href='/tester/{{CLUBID}}';"><a style="cursor:pointer;" onmouseover="this.style.color='#999'">Manage Events</a></li>
 						{%endif%}
 						{%if LOGGED.name%}
 						<li class = "lead" style="position:absolute; left: 600px ; top:15px">Hello {{LOGGED.name}}!</li>

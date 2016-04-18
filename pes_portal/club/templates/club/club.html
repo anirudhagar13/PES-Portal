@@ -8,9 +8,9 @@ function apply_bg()
 	slider = document.getElementById("main-slider");
 	slider.style.backgroundImage = "url('../../static/d.jpg')";
 	h1 = document.getElementById("main-slider2h1")
-	h1.innerHTML = {{club.club_name}}
+	h1.innerHTML = "{{club.club_name}}";
 	p = document.getElementById("main-slider2p")
-	p.innerHTML = {{club.objective}};
+	p.innerHTML = "{{club.objective}}";
 }
 apply_bg();
 </script>
@@ -19,7 +19,7 @@ apply_bg();
 <section id="desc">
      <!-- Page Content -->
     <div class="container"><div class="box">
-    <div class="w3-card-4 w3-indigo">
+    <div class="w3-card-4 w3-blue">
 
         <header class="w3-container">
           <h1 style="color: white"><strong>Objective</strong></h1>
@@ -28,61 +28,39 @@ apply_bg();
         <div class="w3-container">
           <p>{{club.objective}}</p>
         </div>        
-    </div>
-    
-    </div>    
-      </div>
-    </section>
-
-
-    <section id="desc">
-     <!-- Page Content -->
-    <div class="container"><div class="box">
-    <div class="w3-card-4 w3-indigo">
-
-        <header class="w3-container">
+		
+		<header class="w3-container">
           <h1 style="color: white"><strong>Description</strong></h1>        </header>
 
         <div class="w3-container">
             <p>{{club.description}}</p>
-        </div>        
-    </div>
-    
-    </div>    
-      </div>
-    </section>
-
-
-
-    <section id="desc">
-     <!-- Page Content -->
-    <div class="container"><div class="box">
-    <div class="w3-card-4 w3-indigo">
-
-        <header class="w3-container">
+        </div>
+		
+		<header class="w3-container">
           <h1 style="color: white"><strong>Contact Information</strong></h1>
         </header>
 
         <div class="w3-container">
           
             <p>{{club.contact_info}}</p>
-        </div>        
-    </div>
+        </div>
+	</div>
     
     </div>    
       </div>
     </section>
 
+  
 
 
     <section id="events">
 	 <!-- Page Content -->
 	<div class="container"><div class="box">
 	
-      <div class="w3-card-4 w3-indigo">
+      <div class="w3-card-4 ">
 
         <header class="w3-container">
-          <h1 style="color: white"><strong>Events</strong></h1>
+          <h1><strong>Events</strong></h1>
         </header>
 
         <div class="w3-container">
@@ -119,7 +97,7 @@ apply_bg();
         <div class="container">
             <div class="box">
 
-      <div class="w3-card-4 w3-indigo">
+      <div class="w3-card-4">
 
         <header class="w3-container">
           <h1 style="color: white"><strong>Gallery</strong></h1>
