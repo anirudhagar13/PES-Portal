@@ -94,9 +94,9 @@ class Register(models.Model):
 
 
 class Seller(models.Model):
-	book_name = models.CharField(max_length=50)
+	book_name = models.CharField(max_length=200)
 	seller_id = models.ForeignKey(Signup)
-	subject = models.CharField(max_length=50)
+	subject = models.CharField(max_length=200)
 	
 
 	class Meta:

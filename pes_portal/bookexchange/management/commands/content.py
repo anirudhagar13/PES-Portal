@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from tester.models import *
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand,CommandError
