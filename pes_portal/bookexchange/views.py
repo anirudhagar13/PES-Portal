@@ -19,7 +19,7 @@ def get_book_data(user_usn=None,book_name=None):
 	if(book_name == None):
 		sellers = Seller.objects.exclude(seller_id_id = user_usn)
 	elif (book_name != None):
-		sellers = Seller.objects.filter(book_name__contains=book_name).exclude(seller_id_id = user_usn)
+		sellers = Seller.objects.filter(book_name__contains=book_name, subject__contains = book_name).exclude(seller_id_id = user_usn)
 
 
 	for seller in sellers:

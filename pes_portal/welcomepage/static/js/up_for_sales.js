@@ -1,4 +1,4 @@
-function init_book()
+function init()
 {
 	saleTable = document.getElementById("table");
 	saleTable.addEventListener("click", make_ajax_for_borrow,false);
