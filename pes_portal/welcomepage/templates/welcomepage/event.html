@@ -3,59 +3,65 @@
 <script>
 function apply_bg()
 {
-	slider = document.getElementById("main-slider");
-	slider.style.backgroundImage = "url('../../static/pes2.jpg')";
-	h1 = document.getElementById("main-slider2h1");
-	h1.innerHTML = "{{event.event_name}}";
-	p = document.getElementById("main-slider2p");
-	p.innerHTML = "Club : {{event.club_id}}";
+    slider = document.getElementById("main-slider");
+    slider.style.backgroundImage = "url('../../static/pes2.jpg')";
+    h1 = document.getElementById("main-slider2h1");
+    h1.innerHTML = "{{event.event_name}}";
+    p = document.getElementById("main-slider2p");
+    p.innerHTML = "Club : {{event.club_id}}";
 }
 apply_bg();
 </script>    
 
     <section id="desc">
      <!-- Page Content -->
-    <div class="container"><div class="box">
-    
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                 <div class="center gap">
-                    {% if event %}
-                        <h2>Description</h2>
-                        <p>{{event.event_desc}}</p>
-                    {% endif %}
-                </div><!--/.center-->
+    <div class="container">
+        <div class="box">
+            <div class="w3-card-4">
+                <header class="w3-container w3-blue" >
+                  <h2 style="color: #FFFFFF"><strong>Description</strong></h2>
+                </header>
+                <div class="w3-container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="center gap" style="color: black" >
+                            <br />
+                                {% if event %}
+                                    <p>{{event.event_desc}}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <!-- /.row -->
-
-    </div>    
+        </div>    
       </div>
-    </section>
-    
-    
+    </section>    
+
+
     <section id="info">
         <div class="container">
             <div class="box">
-                    <center>
-                        <h2>Info</h2>
-                    </center>
-                    <center>
-                        {%if event%}
-                            
-                        DATE : {{ event.event_date }}<br>
-                        VENUE : {{ event.venue }}<br>
-                        No. of Participants : {{ event.no_part}}<br>
-                        Contact : {{ event.contact_info}}
-                    
-                        {%endif%}
-                        <br><br><br><br>
-                        
-                        <script type="text/javascript">
+                <div class="w3-card-4">
+                    <header class="w3-container w3-blue" >
+                        <h2 style="color: #FFFFFF"><strong>Information</strong></h2>
+                    </header>
+                    <div class="w3-container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="center gap" style="color: black" >
+                                    <br />
+                                        {%if event%}
+                                            
+                                        DATE : {{ event.event_date }}<br>
+                                        VENUE : {{ event.venue }}<br>
+                                        No. of Participants : {{ event.no_part}}<br>
+                                        Contact : {{ event.contact_info}}                                    
+                                        {%endif%}
+                                        <script type="text/javascript">
                             function register()
                             {
-                                if("{{LOGGED}}")
+                                if({{isLoggedIn}})
                                 {
                                     var xhttp = new XMLHttpRequest();
                                     xhttp.onreadystatechange = function() 
@@ -89,30 +95,58 @@ apply_bg();
                                 }
                             }
                         </script>
-                        
-                        <a id="register" class="btn btn-primary btn-lg" href="#info" onclick="register()">Register</a>
-                    </center>   
+                        <br /><br />
+                        <button id="register" class="w3-btn w3-blue" href="#info" onclick="register()"><strong>REGISTER</strong></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                    
             </div>
         </div><hr>
     </section>
-    
-    
+
+<div class="w3-card-4 w3-margin" id="comment_template" style="display: none">
+    <header class="w3-container w3-blue">
+      <h4 style="color:#FFFFFF"><strong><span style="float: right;"></span></strong></h4>
+    </header>
+    <div class="w3-container">
+      <p style="color:#000000; padding-top:15px "></p>
+    </div>
+</div>
 <section id="comments">
         <div class="container">
             <div class="box">
-                <center><h2>Comments</h2></center>
-                <div style="background-color: #D3D3D3" id="comment_box">
+            <div class="w3-card-4 w3-margin">
+                <header class="w3-container w3-blue">
+                <center><h2 style="color:#FFFFFF"><strong>Comments</strong></h2></center>                  
+                </header>
+                <div class="w3-container">
+                  <div id="comment_box">
                 {% if comment_list %}
                     {% for each in comment_list %}
-                    <strong><h4>{{each|get_item_value:"name"}} {{each.comments.creat_date}}</h4></strong>
-                    <p>{{each.comments.comment}}</p>
+                        <div class="w3-card-4 w3-margin">
+                            <header class="w3-container w3-blue">
+                              <h4 style="color:#FFFFFF"><strong>{{each|get_item_value:"name"}}<span style="float: right;">{{each.comments.creat_date}}</span></strong></h4>
+                            </header>
+                            <div class="w3-container">
+                              <p style="color:#000000; padding-top:15px ">{{each.comments.comment}}</p>
+                            </div>                            
+                        </div>                    
                     {%endfor%}
                 {%endif%}
+
                 </div>
+
+                <textarea id="comment_text" name="comment" cols="80" rows="3" style="margin-left: 18px;width: 97%"></textarea><br/><br/>
+                <center><button class="w3-btn w3-blue" onclick="add_comment()" href="#comments"><strong>COMMENT</strong></button></center>
+                <br/><br />
+
                 <script type="text/javascript">
+
                     function add_comment()
                     {
-                        if("{{LOGGED}}")
+                        if({{isLoggedIn}})
                         {
                             //AJAX call
                             var xhttp = new XMLHttpRequest();
@@ -122,23 +156,39 @@ apply_bg();
                                 comment = textbox.value;                                
                                 if (xhttp.readyState == 4 && xhttp.status == 200)
                                 {
-                                    //alert("Comment successfully added!");
                                     swal('Comment successfully added!')
+                                    //alert("Comment successfully added!");
                                     //Code to add new node
                                     var comment_box = document.getElementById("comment_box");
-                                    var new_header = document.createElement("H4");
                                     var x = new Date();
                                     var ampm = x.getHours() >= 12 ? 'pm' : 'am';
                                     var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
                                     var datetime = monthNames[x.getMonth()] + " " + x.getDate() + "," + x.getFullYear() + ", " + x.getHours() + ":" + x.getMinutes() + " " + ampm;
-                                    new_header.innerHTML = xhttp.responseText + " " + datetime;
-                                    var new_comment = document.createTextNode(comment);
+                                    //new_header.innerHTML = xhttp.responseText + " " + datetime;
+                                    var old_comment = document.getElementById("comment_template");
+                                    var new_comment = old_comment.cloneNode(true);
+                                    new_comment.style.display = "block";
+                                    var header_strong = ((new_comment.childNodes[1]).childNodes[1]).childNodes[0];                                    
+                                    header_strong.innerHTML = xhttp.responseText;
+                                    
+                                    var header_span = document.createElement("span");
+                                    header_span.innerHTML = datetime;
+                                    header_span.style.float = "right";
+                                    header_strong.appendChild(header_span)
+                                    //header_span.nodeValue = datetime;
+                                    
+                                    var comment_p = (new_comment.childNodes[3]).childNodes[1];
+                                    comment_p.innerHTML = comment;
+                                    comment_box.appendChild(new_comment);
+                                    textbox.value = "";
+
+                                    /*var new_comment = document.createTextNode(comment);
                                     comment_box.appendChild(new_header);
                                     comment_box.appendChild(new_comment);
                                     para = document.createElement("P");
                                     para.style.backgroundColor="#FFFFFF"
                                     comment_box.appendChild(para);
-                                    textbox.value = ""      
+                                    textbox.value = ""*/      
                                 } 
                                     
                             };
@@ -159,9 +209,10 @@ apply_bg();
                     }
 
                 </script>
-                <textarea id="comment_text" name="comment" cols="80" rows="3" ... ></textarea>
-                <a class="btn btn-primary btn-lg"  onclick="add_comment()" href="#comments">Comment</a>
+                </div>
+                                
             </div>
+        </div>
         </div>
         <hr>
     </section>
