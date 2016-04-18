@@ -164,8 +164,8 @@ def click_prom(request):
 	hidden = Tuple_no(request.POST)													#Hidden Form to see if button clicked or not
 	name = Event.objects.filter(club_id=cid).filter(event_id=eid)[0].event_name 	
 	forms = Register.objects.filter(club_id=cid).filter(event_id=eid).order_by('id')
+	url = 'https://localhost/welcomepage/event/?event_id=%s&club_id=%s'%(eid,cid)
 	if hidden.is_valid():
-		url = 'https://localhost/welcomepage/event/?event_id=%s'%(eid)
 		for i in range(0,len(forms)):
 			s_mail.append(forms[i].email)
 		msg = "Upcoming Event : %s is on the verge.\nPlease Click the link : %s"%(name,url)
@@ -175,6 +175,6 @@ def click_prom(request):
 		hidden = Tuple_no()
 		name = Event.objects.filter(club_id=cid).filter(event_id=eid)[0].event_name
 		forms = Register.objects.filter(club_id=cid).filter(event_id=eid).order_by('id')
-		return render(request, 'tester/click_prom.html', navbar_functions(request, {'hide':hidden}))
+		return render(request, 'tester/click_prom.html', navbar_functions(request, {'hide':hidden,'URL':url}))
 
-	return render(request, 'tester/click_prom.html', navbar_functions(request, {'hide':hidden}))
+	return render(request, 'tester/click_prom.html', navbar_functions(request, {'hide':hidden,'URL':url}))
