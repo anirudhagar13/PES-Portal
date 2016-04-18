@@ -1,4 +1,4 @@
-function init()
+function init_book()
 {
 	saleTable = document.getElementById("table");
 	saleTable.addEventListener("click", make_ajax_for_borrow,false);
@@ -10,7 +10,7 @@ function init()
 function make_ajax_for_search(event)
 {
   if(searchbar.value == '')
-    window.location.reload();
+    window.location = window.location.href;
   console.log(searchbar.value);
   var xhttp = new XMLHttpRequest();
 
