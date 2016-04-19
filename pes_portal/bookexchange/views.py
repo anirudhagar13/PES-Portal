@@ -29,8 +29,8 @@ def get_book_data(user_usn=None,book_name=None):
 			borrowed = True
 
 		my_dict = {
-		"usn":seller.seller_id_id.encode('utf8'),
-		"book_name":seller.book_name.encode('utf8'),
+		"usn":seller.seller_id_id,
+		"book_name":seller.book_name,
 		"borrowed": borrowed
 		}
 		my_list.append(my_dict)
