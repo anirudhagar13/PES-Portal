@@ -38,7 +38,20 @@ apply_bg();
 				
 		labs = document.getElementsByTagName('label');		
 		for(i in labs)
+		{
 			labs[i].className = "w3-tag w3-xlarge w3-blue w3-round";
+			nm = labs[i].innerHTML;
+			if(nm == "Event date:")
+				labs[i].innerHTML = "Event Date & Time:";
+			if(nm == "No part:")
+				labs[i].innerHTML = "No of Participants (per team):";
+			if(nm == "No reg:")
+				labs[i].innerHTML = "No Of Registrations:";
+			if(nm == "Event desc:")
+				labs[i].innerHTML = "Event Description:";
+			if(nm == "Poster:")
+				labs[i].innerHTML = "Poster Upload:";
+		}
 
 		//Hiding field-missing errors for hidden club-id and styling uls
 		eror = document.getElementsByTagName("ul");
@@ -56,7 +69,7 @@ apply_bg();
 		{
 			field = document.getElementById(input_texts[val]);
 			if(input_texts[val] == 'id_event_date')
-				field.placeholder = "YYYY-MM-DD";
+				field.placeholder = "YYYY-MM-DD HH:MM (Please Enter In this format only)";
 			if(input_texts[val] == 'id_event_id')
 				field.value = fill_eid;
 			if(input_texts[val] == 'id_event_desc')
@@ -64,7 +77,7 @@ apply_bg();
 			if(input_texts[val] == 'id_contact_info')
 				field.placeholder = "PERSON - CONTACT INFO";
 			if(input_texts[val] == 'id_own_form')
-				field.placeholder = "EXTERNAL FORM LINK";
+				field.placeholder = "EXTERNAL FORM LINK (If not using PES TIMES Form)";
 			field.className = "w3-input w3-animate-input w3-hover-light-blue w3-text-blue";
 			field.style.width = "150px";
 		}

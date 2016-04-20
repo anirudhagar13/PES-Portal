@@ -168,7 +168,7 @@ def click_prom(request):
 	if hidden.is_valid():
 		for i in range(0,len(forms)):
 			s_mail.append(forms[i].email)
-		msg = "Upcoming Event : %s is on the verge.\nPlease Click the link : %s"%(name,url)
+		msg = "Upcoming Event : %s is on the verge.\nWe are glad to inform you that your registration has been accepted.\nPlease Click the link for event details : %s \nSee you at the event :)"%(name,url)
 		subject = "PES Times Upcoming Events"
 		f_mail = settings.EMAIL_HOST_USER
 		send_mail(subject,msg, f_mail , s_mail, fail_silently=False)	
