@@ -14,6 +14,8 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
 from django.template.defaulttags import register
+from django.views.decorators.cache import never_cache
+from django.utils.crypto import get_random_string
 
 # Create your views here.
 def navbar_functions(request , e = {}):
@@ -41,24 +43,53 @@ def navbar_functions(request , e = {}):
 		#signup form contains email field
 		elif dict1.get("email"):		
 			#signup
+			request.session["username"] = dict1["username"]	
+			request.session["usn"] = dict1["usn"]	
+			request.session["email"] = dict1["email"]
+			request.session["mobile"] = dict1["mobile"]
+			request.session["dept"] = dict1["dept"]
+			request.session["sem"] = dict1["sem"]
+			request.session["password1"] = dict1["password1"]
+			request.session["dob"] = dict1["dob"]
+			
 			try:
-				username = dict1["username"]	
-				usn = dict1["usn"]	
-				email = dict1["email"]
-				mobile = dict1["mobile"]
-				dept = dict1["dept"]
-				sem = dict1["sem"]
-				password1 = dict1["password1"]
-				dob = dict1["dob"]
-				#two entries are made:  One in Django User table for authentication purpose
-				#						Other in Signup table of our DB for recording user data
-				new_user = User.objects.create_user(username=usn,password=password1)
-				new_user.save()
-				Signup.objects.create(name=username, email=email, usn=usn, dept=dept, phone=mobile, sem=sem, dob=dob)		
-			except IntegrityError as e:
+				user = User.objects.get(username = usn)
+			except:
+				key = get_random_string(length = 8)
+				request.session["key"] = key
+				msg = "This is your key: " + key
+				subject = "PES Times key sent"
+				f_mail = settings.EMAIL_HOST_USER
+				s_mail = [dict1["email"]]
+				send_mail(subject, msg , f_mail , s_mail, fail_silently=False)
+				extradict.update({"KEY_SENT":True,"clubs":clubs})
+				return extradict
+			else:
 				#user exists
 				extradict.update({"INTEGRITY_ERROR":True,"clubs":clubs})
 				return extradict
+			
+		elif dict1.get("key"):
+			#print(key,dict1.get("key"),"***************")
+			if dict1.get("key") == request.session["key"]:
+				#two entries are made:  One in Django User table for authentication purpose
+				#						Other in Signup table of our DB for recording user data
+				new_user = User.objects.create_user(username=request.session["usn"],password=request.session["password1"])
+				new_user.save()
+				Signup.objects.create(name=request.session["username"], email=request.session["email"], usn=request.session["usn"], dept=request.session["dept"], phone=request.session["mobile"], sem=request.session["sem"], dob=request.session["dob"])
+				request.session["key"] = None
+				request.session["username"] = None	
+				request.session["usn"] = None
+				request.session["email"] = None
+				request.session["mobile"] = None
+				request.session["dept"] = None
+				request.session["sem"] = None
+				request.session["password1"] = None
+				request.session["dob"] = None
+			else:
+				extradict.update({"WRONG_KEY":True,"clubs":clubs})
+				return extradict
+		
 		elif dict1.get("userusn"):
 			#lost password
 			usn = dict1["userusn"]
@@ -106,6 +137,7 @@ This function renders the newsfeed page
 It manages the signup, login, logout functionality and sets appropriate session variables
 '''
 @csrf_exempt
+@never_cache
 def render_newsfeed(request):
 	# set data to be sent to templates
 

@@ -30,7 +30,7 @@ apply_bg();
         <div class="row">
             <div class="col-md-7">
                 <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
+                    <img class="img-responsive" src="/static/images/{{event.club_id}}/poster{{event.event_id}}.jpg" alt="" style="height:300px;width:700px">
                 </a>
             </div>
             <div class="col-md-5">
@@ -66,7 +66,7 @@ apply_bg();
                     <li class="portfolio-item apps">
                         <div class="item-inner">
                             <div class="portfolio-image">
-                                <img src="images/portfolio/thumb/item1.jpg" alt="">
+                                <img style="height:190px;width:200px;" src="/static/images/{{club.club_id}}/club_poster.jpg" alt="">
                                 <div class="overlay">
                                     <a href="/club/?club_id={{club.club_id}}" title="Lorem ipsum dolor sit amet"><i class="icon-eye-open"></i></a>             
                                 </div>

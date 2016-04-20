@@ -39,7 +39,6 @@ class Command(BaseCommand):
 
 
 		Club.objects.create(club_id = "SM01", club_name = "Samarpana", contact_info = "Email id: ishdeep.94in@yahoo.in\nPhone number: +919008699817", objective = "An event to honor the martyr of the Indian Defense Forces.", description = des01)
-		Club.objects.create(club_id = "AT02", club_name = "Aatmatrisha", contact_info = "Aman Tayyab\nCultural Secretary\n+91 95387 13111", objective = "Cultural festival of PES University.", description = des02)
 		Club.objects.create(club_id = "OU03", club_name = "Ordell Ugo", contact_info = "http://research.pes.edu/contact", objective ="Virtual Company which works on real time Industry Projects.", description = des03)
 		Club.objects.create(club_id = "NI04", club_name = "Ninaada", contact_info = "Name: Kuntal Nandi\nContact: 9899766431/9555166431\nEmail: k.nandi1803@gmail.com", objective = "Cultural night to promote Indian music, incorporates Spicmacy.", description = des04)
 		Club.objects.create(club_id = "PR05", club_name = "Prakalpa", contact_info = "Address\nPES University, 100 Feet Ring Road, Banashankari 3rd Stage, Bangalore", objective = "A exhibition of all top projects of all departments displayed under one roof.", description = des05)
@@ -93,10 +92,6 @@ class Command(BaseCommand):
 		new_user.save()
 		Signup.objects.create(name='Apoorv Jain', email='neha.kalibhat@gmail.com', usn='1PI12EE015', dept='eee', phone=str(randomizer('phone')), sem=8, dob='1994-04-14', club_id='SM01')
 		
-		new_user = User.objects.create_user(username="1PI13ME015",password="password")
-		new_user.save()
-		Signup.objects.create(name='Aman Tayyab', email='neha.kalibhat@gmail.com', usn='1PI13ME015', dept='me', phone='9538713111', sem=8, dob='1994-03-15', club_id='AT02')
-		
 		new_user = User.objects.create_user(username="1PI12EC155",password="password")
 		new_user.save()
 		Signup.objects.create(name='Srikanta Somayaji', email='neha.kalibhat@gmail.com', usn='1PI12EC155', dept='ece', phone=str(randomizer('phone')), sem=8, dob='1994-12-09', club_id='NI04')
@@ -148,10 +143,6 @@ class Command(BaseCommand):
 		# events
 		samarpana_desc = 'Run for the soldiers, Run for those who safeguard you against enemies and conflict, Run for those who risk their flesh so that you can live in peace. Run for our Armed Forces.'
 		Event.objects.create(club_id='SM01', event_id=1, event_name='Samarpana Run', event_date=str(timezone.now()), venue='PESU', contact_info='Email id: ishdeep.94in@yahoo.in\nPhone number: +919008699817', event_desc=samarpana_desc, no_part=3 , no_reg=50, requirements="['name','email','phone','dept','sem']")
-
-		at_desc = 'The techno-cultural fest of PES University, Bangalore.'
-		Event.objects.create(club_id='AT02', event_id=1, event_name='Cultural Night', event_date=str(timezone.now()), venue='PESU', contact_info='Aman Tayyab\nCultural Secretary\n+919538713111', event_desc=at_desc, no_part=3 , no_reg=50, requirements="['name','email']")
-		Event.objects.create(club_id='AT02', event_id=2, event_name='Pro Night', event_date=str(timezone.now()), venue='PESU', contact_info='Aman Tayyab\nCultural Secretary\n+919538713111', event_desc=at_desc, no_part=3 , no_reg=50, requirements="['name','email']")
 
 		yamini_desc = 'An all night classical musical and dance experience.'
 		Event.objects.create(club_id='NI04', event_id=1, event_name='Yamini', event_date=str(timezone.now()), venue='PESU', contact_info='Name: Kuntal Nandi\nContact: 9899766431/9555166431\nEmail: k.nandi1803@gmail.com', event_desc=yamini_desc, no_part=2 , no_reg=50, requirements="['name','email','phone','dept','sem']")

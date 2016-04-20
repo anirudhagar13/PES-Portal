@@ -6,7 +6,7 @@
 function apply_bg()
 {
 	slider = document.getElementById("main-slider");
-	slider.style.backgroundImage = "url('../../static/d.jpg')";
+	slider.style.backgroundImage = "url('../../static/{{club.club_id}}/club_poster.jpg')";
 	h1 = document.getElementById("main-slider2h1")
 	h1.innerHTML = "{{club.club_name}}";
 	p = document.getElementById("main-slider2p")
@@ -69,7 +69,7 @@ apply_bg();
               <!-- Project One -->
               <div class="row">
                   <div class="col-md-7">
-                          <img class="img-responsive" src="/static/images/{{ cname.club_name}}/events/{{event.event_name}}.jpg" alt="" height="300" width="700">
+                          <img class="img-responsive" style="height:300px;width:500px" src="/static/{{club.club_id}}/poster{{event.event_id}}.jpg" alt="" height="300" width="700">
                   </div>
                   <div class="col-md-5">
                       <h3>{{event.event_name}}</h3>

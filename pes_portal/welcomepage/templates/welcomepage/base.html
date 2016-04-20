@@ -123,6 +123,18 @@ function check_fields()
 </div>
 {%endif%}
 
+{%if WRONG_KEY%}
+<div id="loginproblem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<h2 class="modal-title" id="myModalLabel">The key you entered is wrong</h2>
+      		</div>
+		</div>
+	</div>	
+</div>
+{%endif%}
+
 {%if INTEGRITY_ERROR%}
 <div id="userexists" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
@@ -156,6 +168,40 @@ function check_fields()
       		</div>
 		</div>
     </div>
+</div>
+{%endif%}
+
+{%if KEY_SENT%}
+<div id="keyemailsent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		
+        		<h2 class="modal-title" id="myModalLabel">An email has been sent to your account with a key</h2>
+      		</div>
+      		<div class="modal-body login-modal">
+      			<div class="clearfix"></div>
+      			<div id='social-icons-conatainer'>
+	        		<div class='modal-body-left'>
+						<form action="" name="keyform" method="POST">{% csrf_token %}
+						
+						<div class="form-group">
+							<input type="text"  name="key" placeholder="Enter the key sent" value="" class="form-control login-field">
+		              		<i class="fa fa-user login-field-icon"></i>
+		            	</div>
+	
+		            	<input type="submit" value="Submit" class="btn btn-success modal-login-btn"/>
+		            	
+						</form>						
+					</div>
+	        	
+	        	</div>																												
+        		<div class="clearfix"></div>
+		
+        		</div>
+      		</div>
+      		<div class="clearfix"></div>
+      		</div>
 </div>
 {%endif%}
 
@@ -231,6 +277,8 @@ function check_fields()
       		</div>
 </div>
 
+
+
 <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="position:absolute;top:100px;left:380px;">
     	<div class="modal-content">
@@ -288,7 +336,7 @@ function check_fields()
 							<label id="passdontmatch" class="form-control login-field"></label>
 							
 						</div>
-						<input type="submit" value="Sign Up" class="btn btn-success modal-login-btn"/>
+						<input type="submit" value="Sign Up" class="btn btn-success modal-login-btn" />
 						</form>
 						
 	        		</div>

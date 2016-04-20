@@ -62,7 +62,9 @@ def list_books_for_sale(request):
 
 
 def get_buyers_details(usn):
-
+	'''	
+		creates JSON of all buyers for all books of a given seller
+	'''
 	buyers = []
 	buyers_list = list()
 	# get seller objects of the current active user which is required to query the Pending Transactions table
