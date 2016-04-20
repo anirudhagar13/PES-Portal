@@ -36,8 +36,11 @@ function dealDone(target)
 	var csrftoken = getCookie('csrftoken');
 	var xhttp = new XMLHttpRequest();
 
-
-  	xhttp.onreadystatechange = function() {
+	// shows the dialog for 9seconds
+	waitingDialog.show('Notifying all the buyers. Please Wait...');
+	setTimeout(function () {waitingDialog.hide();}, 9000);
+  	
+	xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) 
     {
           // alert("success");
