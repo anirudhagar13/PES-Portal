@@ -141,7 +141,7 @@ It manages the signup, login, logout functionality and sets appropriate session 
 def render_newsfeed(request):
 	# set data to be sent to templates
 
-	events = Event.objects.all().order_by("event_date").reverse()
+	events = Event.objects.all().order_by("id").reverse()
 	
 	return render(request, "welcomepage/newsfeed.html", navbar_functions(request, {"events":events}))
 	
