@@ -67,7 +67,7 @@ class Command(BaseCommand):
 		na = ["Anirudh Agarwal","Manisha Rachel Dawson","Mohit Mayank","Nagasundar","Navneet Singh","Niket Raj",
 		 		"Parikshit Maheshwari","Prafful U M","Rohan Ds","Romasha Suman","Sharath K P","Smitha"]
 		 		
-		em = ["anirudhagarwal13@gmail.com","dawson.mrd@gmail.com","mohit.ritanil@gmail.com","nagasundarjogi@gmail.com",
+		em = ["anirudhagar13@gmail.com","dawson.mrd@gmail.com","mohit.ritanil@gmail.com","nagasundarjogi@gmail.com",
 		 		"jsr.navneet1@gmail.com","niketraj45@gmail.com","parikshit.maheshwari24@gmail.com","uprafful@gmail.com",
 		 		"rohan0495@gmail.com","romasha.suman@gmail.com","sharathkp000@gmail.com",
 		 		"smithagowdasmi@gmail.com"]
@@ -174,7 +174,7 @@ class Command(BaseCommand):
 		# books: fill Seller table
 		
 		Seller.objects.create(book_name = "Let Us C", seller_id = Signup.objects.get(usn = "1PI13"+un[randint(0,len(un)-1)]), subject = "C Language")
-		Seller.objects.create(book_name = "Introduction  to  The  Design  &  Analysis  of  Algorithms,  2nd  Edition,  Pearson  Education, 2007. ", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = " Design and Analysis of algorithms")
+		#Seller.objects.create(book_name = "Introduction  to  The  Design  &  Analysis  of  Algorithms,  2nd  Edition,  Pearson  Education, 2007. ", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = " Design and Analysis of algorithms")
 		Seller.objects.create(book_name = "Barry B Brey: The Intel Microprocessors ", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Microprocessor")
 		Seller.objects.create(book_name = "Compilers-Principles, Techniques and Tools, Alfred V Aho, Monica S.Lam, Ravi Sethi, Jeffrey", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Compiler design ")
 		Seller.objects.create(book_name = "Simulation Modeling and Analysis by Averill M. Law, W. David Kelton  ", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "System Modeling and Simulation")
@@ -188,7 +188,7 @@ class Command(BaseCommand):
 		Seller.objects.create(book_name = "Multicore Programming, Increased Performance through Software Multi-threading", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Multi Core programming")
 		Seller.objects.create(book_name = "Moving to the Cloud, Dinkar Sitaram", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Cloud Computing")
 		Seller.objects.create(book_name = "Computer Security: Principles and practice", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Computer And Network Security")
-		Seller.objects.create(book_name = "C++ Primer: Lippman", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Advanced C++")
+		#Seller.objects.create(book_name = "C++ Primer: Lippman", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Advanced C++")
 		Seller.objects.create(book_name = "Java2, completet Reference", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Advanced Java Programming")
 		Seller.objects.create(book_name = "Pattern Recognition and Machine Learning C Bishop, Springer Edition", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Applied Machine Learning")
 		Seller.objects.create(book_name = "Operation Research- An Introduction", seller_id = Signup.objects.get(usn = "1PI13" + un[randint(0,len(un)-1)]), subject = "Operation Research")
