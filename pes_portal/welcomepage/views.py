@@ -16,6 +16,7 @@ from django.conf import settings
 from django.template.defaulttags import register
 from django.views.decorators.cache import never_cache
 from django.utils.crypto import get_random_string
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def navbar_functions(request , e = {}):
@@ -111,7 +112,6 @@ def navbar_functions(request , e = {}):
 			usn = dict1["usn"];
 			password = dict1["password"];
 			log_user = authenticate(username=usn, password=password)
-				
 			if log_user:
 				request.session["usn"] = usn
 				user = Signup.objects.get(usn=usn)
@@ -143,7 +143,17 @@ def render_newsfeed(request):
 
 	events = Event.objects.all().order_by("id").reverse()
 	
-	return render(request, "welcomepage/newsfeed.html", navbar_functions(request, {"events":events}))
+	paginator = Paginator(events,4)
+
+	page=request.GET.get('page')
+	try:
+		data = paginator.page(page)
+	except PageNotAnInteger:
+		data = paginator.page(1)
+	except EmptyPage:
+		data = paginator.page(paginator.num_pages)
+
+	return render(request, "welcomepage/newsfeed.html", navbar_functions(request, {"events":data}))
 	
 	
 '''
@@ -156,11 +166,16 @@ def render_event(request, template="event.html"):
 	except:
 		usn = None
 		admin_club = None
-		
+	
 	event_id = request.GET.get("event_id")
 	club_id = request.GET.get("club_id")
+	try:
+		reg = Register.objects.get(usn = usn , club_id = club_id , event_id = event_id)
+	except:
+		reg = None
 	event = Event.objects.get(event_id=event_id , club_id = club_id)
-	comments = Comments.objects.filter(event_id=event_id)
+	comments = Comments.objects.filter(event_id=event_id , club_id = club_id)
+	club = Club.objects.get(club_id = club_id)
 	names = list()
 	for each_comment in range( len(comments) ):
 		names.append((Signup.objects.get(usn=comments[each_comment].usn)).name)
@@ -168,7 +183,7 @@ def render_event(request, template="event.html"):
 	for i in range(len(names)):
 		comment_list.append({"name":names[i],"comments":comments[i]})
 	
-	return render(request, "welcomepage/event.html",navbar_functions(request, {"event":event,"comment_list":comment_list}))
+	return render(request, "welcomepage/event.html",navbar_functions(request, {"event":event,"comment_list":comment_list,"club":club,"registered":reg}))
 
 def render_reset(request):
 	events = Event.objects.all()
@@ -237,7 +252,8 @@ def add_comment(request):
 		parameters = request.POST
 		eventid = parameters.get('eventid')
 		comment = parameters.get('comment')
-		new_comment = Comments(usn=usn,event_id=eventid,comment=comment,creat_date=timezone.now())
+		club_id = parameters.get("clubid")
+		new_comment = Comments(usn=usn,event_id=eventid,club_id = club_id, comment=comment,creat_date=timezone.now())
 		try:
 			new_comment.save()			
 			return HttpResponse((Signup.objects.get(usn=usn)).name)

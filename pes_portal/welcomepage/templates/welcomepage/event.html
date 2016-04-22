@@ -4,11 +4,11 @@
 function apply_bg()
 {
     slider = document.getElementById("main-slider");
-    slider.style.backgroundImage = "url('../../static/pes2.jpg')";
+    slider.style.backgroundImage = "url('../../static/images/{{event.club_id}}/poster{{event.event_id}}.jpg')";
     h1 = document.getElementById("main-slider2h1");
     h1.innerHTML = "{{event.event_name}}";
-    p = document.getElementById("main-slider2p");
-    p.innerHTML = "Club : {{event.club_id}}";
+	p = document.getElementById("main-slider2p");
+    p.innerHTML = "Club : {{club.club_name}}";
 }
 apply_bg();
 </script>    
@@ -88,8 +88,11 @@ apply_bg();
                         </script>
                         <br /><br />
                          </div><br/>
+						 {%if registered%}
+						 <center><label class="form-control login-field">You have already registered for this event</label></center>
+						 {%else%}
                         <center><button id="register" class="w3-btn w3-xxlarge w3-round-xxlarge w3-pale-blue w3-hover-blue" href="#info" onclick="register()"><strong>ONE TAP REGISTER</strong></button></center>
-                               
+                         {%endif%} 
                             </div>
                         </div>
                     </div>
@@ -188,7 +191,7 @@ apply_bg();
                             };
                             xhttp.open("POST","http://localhost:8000/welcomepage/add_comments/",true);
                             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-                            xhttp.send("eventid={{event.event_id}}&comment="+comment);                            
+                            xhttp.send("eventid={{event.event_id}}&clubid={{event.club_id}}&comment="+comment);                            
                         }
                         else
                         {

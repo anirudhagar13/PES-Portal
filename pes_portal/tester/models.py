@@ -116,6 +116,7 @@ class Comments(models.Model):
 	event_id = models.IntegerField()
 	comment = models.CharField(max_length=100000000000000)
 	creat_date = models.DateTimeField('date published')
+	club_id = models.CharField(max_length = 120,default="")
 
 	class Meta:
 		unique_together =(("usn","creat_date"))
