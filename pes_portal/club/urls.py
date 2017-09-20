@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import include, url
 from club import views
 from club.models import *
 from django.conf.urls.static import static
